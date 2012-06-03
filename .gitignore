@@ -1,4 +1,7 @@
 *.log
 *.pot
 *.pyc
+*~
+*/avatars/*
+forum/DFor/avatars/*
 local_settings.py
