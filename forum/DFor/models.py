@@ -4,6 +4,7 @@ from django.db import models
 
 class Uzytkownik(models.Model):
   login = models.CharField(max_length=30)
+  status = models.CharField(max_length=1)
   haslo = models.CharField(max_length=32)
   email = models.EmailField(max_length=254)
   data_urodzenia = models.DateField()
