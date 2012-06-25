@@ -1,20 +1,16 @@
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
 
 class Uzytkownik(models.Model):
-  login = models.CharField(max_length=30)
-  status = models.CharField(max_length=1)
-  haslo = models.CharField(max_length=32)
-  email = models.EmailField(max_length=254)
-  data_urodzenia = models.DateField()
-  plec = models.CharField(max_length=1)
-  miejscowosc = models.CharField(max_length=100)
-  avatar = models.ImageField(upload_to='avatars')
-  podpis = models.TextField()
+  uzytkownik = models.OneToOneField(User)
+  data_urodzenia = models.DateField(blank=True)
+  plec = models.CharField(blank=True, max_length=1)
+  miejscowosc = models.CharField(blank=True, max_length=100)
+  avatar = models.ImageField(blank=True, upload_to='avatars')
+  podpis = models.TextField(blank=True)
   
   def __unicode__(self):
-    return self.login
+    return self.uzytkownik.username
   
 class Post(models.Model):
   uzytkownik = models.ForeignKey(Uzytkownik)
@@ -24,7 +20,7 @@ class Post(models.Model):
   tekst = models.TextField()
   
   def __unicode__(self):
-    return self.tytul + ' ' + self.uzytkownik.login + ' ' + str(self.data_utworzenia)
+    return self.tytul + ' ' + self.uzytkownik.uzytkownik.username + ' ' + str(self.data_utworzenia)
   
 class Temat(models.Model):
   tytul = models.CharField(max_length=100)
@@ -35,7 +31,7 @@ class Temat(models.Model):
   
 class Forum(models.Model):
   nazwa = models.CharField(max_length=100)
-  tematy = models.ManyToManyField(Temat)
+  tematy = models.ManyToManyField(Temat, blank=True)
   
   def __unicode__(self):
     return self.nazwa
