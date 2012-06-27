@@ -1,0 +1,10 @@
+{% extends "baza.html" %}
+
+{% block zawartosc %}
+    {% for forum in object_list %}
+      {{ forum }} <br>
+      {% for temat in forum.tematy.all %}
+	<a href="{{ temat.id }}" > {{ temat }} </a><br>
+      {% endfor %}
+    {% endfor %}
+{% endblock %}
