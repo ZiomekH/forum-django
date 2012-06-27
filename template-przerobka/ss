@@ -1,0 +1,12 @@
+.forum .tytul {
+        margin: 0;
+        font-weight: normal;
+        color: white;
+}
+
+.forum h1.tytul {
+        background: url(../obrazki/largebar.gif) no-repeat left top;
+        padding: 10px 0  0 15px;
+        height: 50px;
+        font-size: 2.0em;
+}

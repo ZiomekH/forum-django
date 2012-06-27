@@ -1,0 +1,7 @@
+.forum .tytul {
+        background: url(../obrazki/largebar.gif) no-repeat left top;
+        padding: 10px 0  0 15px;
+        height: 50px;
+        font-size: 2.0em;
+        margin: 0;
+}
