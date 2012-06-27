@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 class Uzytkownik(models.Model):
   uzytkownik = models.OneToOneField(User)
@@ -11,7 +12,13 @@ class Uzytkownik(models.Model):
   
   def __unicode__(self):
     return self.uzytkownik.username
-  
+    
+  def utworz_uzytkownika(sender, instance, created, **kwargs):
+    if created:
+      Uzytkownik.objects.create(uzytkownik=instance)
+      
+  post_save.connect(utworz_uzytkownika, sender=User)
+
 class Post(models.Model):
   uzytkownik = models.ForeignKey(Uzytkownik)
   data_utworzenia = models.DateTimeField(auto_now_add=True)
