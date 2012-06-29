@@ -13,12 +13,16 @@
     <div id="menu">
 	{% block menu %}
         <ul>
-	    <li class="current_page_item"><a href="#">Główna</a></li>
-            <li><a href="#">Szukaj</a></li>
-            <li><a href="#">Użytkownicy</a></li>
-            <li><a href="#">Grupy</a></li>
-            <li><a href="#">Profil</a></li>
-            <li><a href="#">Zaloguj</a></li>
+	    <li class="current_page_item"><a href="/dfor">Główna</a></li>
+            <li><a href="/dfor/szukaj">Szukaj</a></li>
+            {% if czyZalogowany %}
+		<li><a href="/dfor/uzytkownicy">Użytkownicy</a></li>
+		<li><a href="/dfor/grupy">Grupy</a></li>
+		<li><a href="/dfor/profil">Profil</a></li>
+		<li><a href="/dfor/wyloguj">Wyloguj ({{ uzytkownik }})</a></li>
+	    {% else %}
+		<li><a href="/dfor/zaloguj/?next=/dfor">Zaloguj</a></li>
+	    {% endif %}
 	</ul>
 	{% endblock %}
     </div>

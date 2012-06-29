@@ -5,7 +5,14 @@ from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 
 from models import *
-from forms import * 
+from forms import *
+
+def widokFora(request):
+    czyZalogowany = request.user.is_authenticated();
+    uzytkownik = '';
+    if (czyZalogowany):
+	uzytkownik = Uzytkownik.objects.get(id=request.user.id)
+    return render_to_response("fora.html", {'fora': Forum.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
 def widokOdpowiedz(request, pk):
   data = {}
@@ -20,16 +27,12 @@ def widokOdpowiedz(request, pk):
 
   data['form'] = form  
   return render_to_response('odpowiedz.html', data)
-  
-def my_view(request):
-    if not request.user.is_authenticated():
-        html = "<html><body>Nie zalogowany</body></html>"
-	return HttpResponse(html)
-	
-    #Uzytkownik t = get_profile()
-    html = "<html><body>Zalogowany " + "</body></html>"
-    return HttpResponse(html)
+
     
 def widok_wyloguj(request):
     logout(request)
-    return HttpResponseRedirect('/dfor/widok')
+    return HttpResponseRedirect('/dfor')
+    
+def widok(request):
+    zmienna = 'cos';
+    return render_to_response("widok.html", {'request':request})

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block zawartosc %}
-    {% for forum in object_list %}
+    {% for forum in fora %}
     <div class="forum">
 	<div class="gora">
 	    <div class="tytul">
@@ -88,7 +88,7 @@
 	    <div class="tabelka tematy">
 		<ul>
 		{% for temat in forum.tematy.all %}
-		    <li><a href="{{ temat.id }}">{{ temat }}</a></li>
+		    <li><a href="/dfor/{{ temat.id }}">{{ temat }}</a></li>
 		{% endfor %}
 		</ul>
 	    </div>
@@ -102,14 +102,14 @@
 	    <div class="tabelka autorzy">
 		<ul>
 		{% for temat in forum.tematy.all %}
-		    <li><a href="uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a></li>
+		    <li><a href="/dfor/uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a></li>
 		{% endfor %}    
 		</ul>
 	    </div>
 	    <div class="tabelka ostatnie_posty">
 		<ul>
 		{% for temat in forum.tematy.all %}
-		    <li><a href="uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a></li>
+		    <li><a href="/dfor/uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a></li>
 		{% endfor %}  
 		</ul>
 	    </div>
