@@ -8,6 +8,5 @@ urlpatterns = patterns('',
     url(r'^wyloguj/$', widok_wyloguj),
     
     url(r'^$', ListView.as_view(queryset=Forum.objects.all(), template_name="fora.html")),
-    url(r'^(?P<pk>\d+)/odpowiedz$', widokOdpowiedz),
     url(r'^(?P<pk>\d+)$', DetailView.as_view(model=Temat, template_name="tematy.html"))
 )

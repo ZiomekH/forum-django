@@ -1,10 +1,129 @@
 {% extends "baza.html" %}
 
+{% block title %}
+    Strona główna
+{% endblock %}
+
 {% block zawartosc %}
     {% for forum in object_list %}
-      {{ forum }} <br>
-      {% for temat in forum.tematy.all %}
-	<a href="{{ temat.id }}" > {{ temat }} </a><br>
-      {% endfor %}
+    <div class="forum">
+	<div class="gora">
+	    <div class="tytul">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek">
+		    <h1 class="tekst">
+			{{ forum }}
+		    </h1>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <a href="nowytemat/{{ forum.id }}">
+		<div class="nowy_temat">
+		    <div class="pasek lewy"></div>
+		    <div class="pasek srodek">
+			<h1 class="tekst">
+			    Nowy temat
+			</h1>
+		    </div>
+		    <div class="pasek prawy"></div>
+		</div>
+	    </a>
+	    <div style="clear: both;"></div>
+	</div>
+	{% if forum.opis %}
+	    <p class="opis">
+		{{ forum.opis }}
+	    </p>
+	{% endif %}
+	<div class="naglowki">
+	    <div class="temat">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Temat
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div class="odpowiedzi">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Odpowiedzi
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div class="autor">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Autor
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div class="ostatni_post">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Ostatni post
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div class="data_modyfikacji">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Data modyfikacji
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+	<div class="zawartosc">
+	    <div class="tabelka tematy">
+		<ul>
+		{% for temat in forum.tematy.all %}
+		    <li><a href="{{ temat.id }}">{{ temat }}</a></li>
+		{% endfor %}
+		</ul>
+	    </div>
+	    <div class="tabelka odpowiedzi">
+		<ul>
+		{% for temat in forum.tematy.all %}
+		    <li>{{ temat.posty.count }}</li>
+		{% endfor %} 
+		</ul>
+	    </div>
+	    <div class="tabelka autorzy">
+		<ul>
+		{% for temat in forum.tematy.all %}
+		    <li><a href="uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a></li>
+		{% endfor %}    
+		</ul>
+	    </div>
+	    <div class="tabelka ostatnie_posty">
+		<ul>
+		{% for temat in forum.tematy.all %}
+		    <li><a href="uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a></li>
+		{% endfor %}  
+		</ul>
+	    </div>
+	    <div class="tabelka daty_modyfikacji">
+		<ul>
+		{% for temat in forum.tematy.all %}
+		    <li>{{ temat.ostatniPost.data_modyfikacji|date:'d.m.Y H:i' }}</li>
+		{% endfor %}  
+		</ul>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+    </div>
+    {% empty %}
+	Puste forum
     {% endfor %}
 {% endblock %}

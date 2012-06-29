@@ -20,23 +20,30 @@ class Uzytkownik(models.Model):
   post_save.connect(utworz_uzytkownika, sender=User)
 
 class Post(models.Model):
-  uzytkownik = models.ForeignKey(Uzytkownik)
+  autor = models.ForeignKey(Uzytkownik)
   data_utworzenia = models.DateTimeField(auto_now_add=True)
   data_modyfikacji = models.DateTimeField(auto_now=True)
   tekst = models.TextField()
   
   def __unicode__(self):
-    return self.uzytkownik.uzytkownik.username + ' ' + str(self.data_utworzenia)
+    return self.autor.uzytkownik.username + ' ' + str(self.data_modyfikacji)
   
 class Temat(models.Model):
-  tytul = models.CharField(max_length=100)
+  tytul = models.CharField(max_length=70)
   posty = models.ManyToManyField(Post)
   
   def __unicode__(self):
     return self.tytul
   
+  def autorTematu(self):
+      return self.posty.all()[0].autor
+      
+  def ostatniPost(self):
+      return self.posty.order_by('-data_modyfikacji').all()[0]
+  
 class Forum(models.Model):
-  nazwa = models.CharField(max_length=100)
+  nazwa = models.CharField(max_length=70)
+  opis = models.CharField(max_length=150, blank=True)
   tematy = models.ManyToManyField(Temat, blank=True)
   
   def __unicode__(self):

@@ -2,44 +2,49 @@
 <html>
 
 <head>
-  <title>{% block tytul %}Forum{% endblock %}</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta charset="utf-8" />
-  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <meta charset="utf-8" />
+    <title>Forum - DFor: {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 </head>
 
 <body>
-  <div id="main">
-    <header>
-      <div id="logo">
-        <div id="logo_text">
-          <h1><span class="logo_colour">Forum</span></a></h1>
-          <h2>DFor</h2>
-        </div>
-      </div>
-    </header>
-
+<!-- Początek nagłówka z menu -->
+<header>
     <div id="menu">
-      {% block menu %}
-      Menu
-      {% endblock %}
+	{% block menu %}
+        <ul>
+	    <li class="current_page_item"><a href="#">Główna</a></li>
+            <li><a href="#">Szukaj</a></li>
+            <li><a href="#">Użytkownicy</a></li>
+            <li><a href="#">Grupy</a></li>
+            <li><a href="#">Profil</a></li>
+            <li><a href="#">Zaloguj</a></li>
+	</ul>
+	{% endblock %}
     </div>
+</header>
+<!-- Koniec nagłówka z menu -->
 
-    <div id="content_header"></div>
-    <div id="site_content">
-      <div class="sidebar">         
-      </div>
-      <div id="content">
-      	{% block zawartosc %}
-      	Zawartość
-      	{% endblock %}      
-      </div>
-    </div>
-    <div id="content_footer"></div>
-    <footer>
-      Copyright &copy; simplestyle_1 | <a href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
-    </footer>
-  </div>
-</body>
+<!-- Początek logo -->
+<div id="logo">
+    <h1><a href="">Forum - DFor</a></h1>
+    <h2>dla każdego</h2>
+</div>
+<!-- Koniec logo -->
+
+<hr />
+
+<!-- Początek zawartości strony -->
+<div id="strona">
+    {% block zawartosc %}
+
+    {% endblock %}
+</div>
+<!-- Koniec zawartości strony -->
+
+<!-- Poczatek stopki -->
+<footer>
+	<p>&copy; Copyright 2012 ZiomekH & Adi.<br> Designed by <a href="http://www.runelocus.com/" title="D.Juwara">D.Juwara</a> for <a href="http://www.zymic.com" title="Zymic Free Templates">Zymic</a> <a href="http://www.zymic.com/free-templates">Free Templates</a>. <a href="http://www.zymic.com/free-web-hosting/">Free Web Hosting</a>.</p>
+</footer>
+<!-- Koniec stopki -->
 </html>
