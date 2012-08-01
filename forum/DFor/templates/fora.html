@@ -4,6 +4,10 @@
     Strona główna
 {% endblock %}
 
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/fora.css" />
+{% endblock %}
+
 {% block zawartosc %}
     {% for forum in fora %}
     <div class="forum">

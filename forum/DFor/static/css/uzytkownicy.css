@@ -1,0 +1,71 @@
+/* Użytkownicy nagłówki */
+
+.uzytkownicy .naglowki {
+    padding: 20px 0 0 0;
+}
+
+.uzytkownicy .naglowki .pasek {
+    height: 30px;
+    width: 2px;
+    float: left;
+}
+
+.uzytkownicy .naglowki .lewy {
+    background: url('../obrazki/maly-lewy.gif') no-repeat left top;
+}
+
+.uzytkownicy .naglowki .prawy {
+    background: url('../obrazki/maly-prawy.gif') no-repeat left top;
+}
+
+.uzytkownicy .naglowki .srodek {
+    background: url('../obrazki/maly-srodek.gif') repeat-x left bottom;
+}
+
+.uzytkownicy .naglowki h2.tekst {
+    margin: 0;
+    text-align: center;
+    padding: 7.5px 0;
+}
+
+.uzytkownicy .naglowki .posty .szerokosc {
+    width: 100px;
+}
+
+.uzytkownicy .naglowki .plec .szerokosc {
+    width: 146px;
+}
+
+.uzytkownicy .naglowki .szerokosc {
+    width: 278px;
+}
+
+/* Forum zawartość */
+
+.uzytkownicy .zawartosc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.uzytkownicy .zawartosc li {
+    padding: 5px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    font-size: .8em;
+}
+
+.uzytkownicy .zawartosc .tabelka {
+    float: left;
+    text-align: center;
+    width: 282px;
+}
+
+.uzytkownicy .zawartosc .posty {
+    width: 104px;
+}
+
+.uzytkownicy .zawartosc .plec {
+    width: 150px;
+
+}
+

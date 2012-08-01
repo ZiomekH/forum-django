@@ -1,13 +1,17 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    Strona główna
+    Użytkownicy
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/uzytkownicy.css" />
 {% endblock %}
 
 {% block zawartosc %}
     <div class="uzytkownicy">
 	<div class="naglowki">
-	    <div class="temat">
+	    <div class="login">
 		<div class="pasek lewy"></div>
 		<div class="pasek srodek szerokosc">
 		    <h2 class="tekst">
@@ -16,7 +20,7 @@
 		</div>
 		<div class="pasek prawy"></div>
 	    </div>
-	    <div class="odpowiedzi">
+	    <div class="email">
 		<div class="pasek lewy"></div>
 		<div class="pasek srodek szerokosc">
 		    <h2 class="tekst">
@@ -25,7 +29,7 @@
 		</div>
 		<div class="pasek prawy"></div>
 	    </div>
-	    <div class="autor">
+	    <div class="plec">
 		<div class="pasek lewy"></div>
 		<div class="pasek srodek szerokosc">
 		    <h2 class="tekst">
@@ -34,7 +38,7 @@
 		</div>
 		<div class="pasek prawy"></div>
 	    </div>
-	    <div class="ostatni_post">
+	    <div class="skad">
 		<div class="pasek lewy"></div>
 		<div class="pasek srodek szerokosc">
 		    <h2 class="tekst">
@@ -43,7 +47,7 @@
 		</div>
 		<div class="pasek prawy"></div>
 	    </div>
-	    <div class="data_modyfikacji">
+	    <div class="posty">
 		<div class="pasek lewy"></div>
 		<div class="pasek srodek szerokosc">
 		    <h2 class="tekst">
@@ -55,43 +59,57 @@
 	    <div style="clear: both;"></div>
 	</div>
 	
-<!--	<div class="zawartosc">
-	    <div class="tabelka tematy">
+	<div class="zawartosc">
+	    <div class="tabelka login">
 		<ul>
-		{% for temat in forum.tematy.all %}
-		    <li><a href="/dfor/{{ temat.id }}">{{ temat }}</a></li>
+		{% for uzytk in uzytkownicy %}
+		    <li><a href="/dfor/uzytkownik/{{ uzytk.id }}">{{ uzytk.uzytkownik.username }}</a></li>
 		{% endfor %}
 		</ul>
 	    </div>
-	    <div class="tabelka odpowiedzi">
+	    <div class="tabelka email">
 		<ul>
-		{% for temat in forum.tematy.all %}
-		    <li>{{ temat.posty.count }}</li>
+		{% for uzytk in uzytkownicy %}
+		    <li><a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a></li>
 		{% endfor %} 
 		</ul>
 	    </div>
-	    <div class="tabelka autorzy">
+	    <div class="tabelka plec">
 		<ul>
-		{% for temat in forum.tematy.all %}
-		    <li><a href="/dfor/uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a></li>
+		{% for uzytk in uzytkownicy %}
+		    <li>
+		    {% if uzytk.plec = 'K' %}
+			Kobieta
+		    {% elif uzytk.plec = 'M' %}
+			Mężczyzna
+		    {% else %}
+			?
+		    {% endif %}
+		    </li>
 		{% endfor %}    
 		</ul>
 	    </div>
-	    <div class="tabelka ostatnie_posty">
+	    <div class="tabelka skad">
 		<ul>
-		{% for temat in forum.tematy.all %}
-		    <li><a href="/dfor/uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a></li>
+		{% for uzytk in uzytkownicy %}
+		    <li>
+		    {% if uzytk.miejscowosc %}
+			{{ uzytk.miejscowosc }}
+		    {% else %}
+			?
+		    {% endif %}
+		    </li>
 		{% endfor %}  
 		</ul>
 	    </div>
-	    <div class="tabelka daty_modyfikacji">
+	    <div class="tabelka posty">
 		<ul>
-		{% for temat in forum.tematy.all %}
-		    <li>{{ temat.ostatniPost.data_modyfikacji|date:'d.m.Y H:i' }}</li>
+		{% for uzytk in uzytkownicy %}
+		    <li>do zrobienia</li>
 		{% endfor %}  
 		</ul>
 	    </div>
 	    <div style="clear: both;"></div>
-	</div>-->
+	</div>
     </div>
 {% endblock %}
