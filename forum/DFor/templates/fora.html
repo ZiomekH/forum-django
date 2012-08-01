@@ -92,7 +92,7 @@
 	    <div class="tabelka tematy">
 		<ul>
 		{% for temat in forum.tematy.all %}
-		    <li><a href="/dfor/{{ temat.id }}">{{ temat }}</a></li>
+		    <li><a href="/dfor/temat/{{ temat.id }}">{{ temat }}</a></li>
 		{% endfor %}
 		</ul>
 	    </div>

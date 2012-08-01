@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from datetime import date
 
 class Uzytkownik(models.Model):
   uzytkownik = models.OneToOneField(User)
@@ -18,6 +19,9 @@ class Uzytkownik(models.Model):
       Uzytkownik.objects.create(uzytkownik=instance)
       
   post_save.connect(utworz_uzytkownika, sender=User)
+  
+  def wiek(self):
+      return int((abs(date.today() - self.data_urodzenia)).days/365.25);
 
 class Post(models.Model):
   autor = models.ForeignKey(Uzytkownik)
@@ -27,6 +31,9 @@ class Post(models.Model):
   
   def __unicode__(self):
     return self.autor.uzytkownik.username + ' ' + str(self.data_modyfikacji)
+    
+  def zmieniony(self):
+    return ((self.data_modyfikacji - self.data_utworzenia).seconds) != 0
   
 class Temat(models.Model):
   tytul = models.CharField(max_length=70)
