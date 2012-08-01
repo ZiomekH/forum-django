@@ -1,0 +1,14 @@
+{% extends "baza.html" %}
+
+{% block zawartosc %}
+    <h2>Temat: {{ object.tytul }}</h2>
+    {% for post in object.posty.all %}
+      <p>
+	Użytkownik: {{ post.uzytkownik }} <br>
+	Data utworzenia: {{ post.data_utworzenia }} <br>
+	Data modyfikacji: {{ post.data_modyfikacji }} <br>
+	{{ post.tekst }}
+      </p>
+    {% endfor %}
+    <a href="{{ object.id }}/odpowiedz">odpowiedz</a>
+{% endblock %}

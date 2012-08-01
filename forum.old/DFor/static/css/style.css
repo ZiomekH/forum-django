@@ -1,0 +1,322 @@
+/*
+Design by D.Juwara - http://www.runelocus.com/
+Made for Zymic.com - Free Web Templates
+Modyfikacja ZiomekH & Adi
+*/
+
+body {
+	margin: 20px 0;
+	background-image: url('../obrazki/bg.png');
+}
+
+body, th, td {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+
+h1, h2 {
+	margin-top: 1.5em;
+	color: #626456;
+}
+
+h1 {
+	letter-spacing: -.075em;
+	font-size: 3em;
+}
+
+h2 {
+	letter-spacing: -.05em;
+	text-transform: uppercase;
+	font-size: 1.0em;
+	font-weight: bold;
+	color: white;
+}
+
+p, ul {
+	margin-top: 1.5em;
+	line-height: 1.8em;
+	font-size: 1.1em;
+}
+
+a {
+	text-decoration: none;
+	color: #3C7BCF;
+}
+
+a:hover {
+	border: none;
+}
+
+h1 a, h2 a, h3 a {
+	border: none;
+	text-decoration: none;
+	color: white;
+}
+
+hr {
+	display: none;
+}
+
+header {
+	width: 1150px;
+	height: 35px;
+	margin: 0 auto;
+	background-color:transparent;
+	background-image:url('../obrazki/transbg.png');
+}
+
+
+/* Menu */
+
+#menu {
+	float: left;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	line-height: normal;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	height: 25px;
+	padding: 10px 20px 0 20px;
+	text-decoration: none;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+#menu a:hover {
+	background:  #ffffff;
+	color: #2C2E22;
+}
+
+#menu .current_page_item a {
+	background:  #ffffff;
+	color: #2C2E22;
+}
+
+
+/* Logo */
+
+#logo {
+	width: 1140px;
+	height: 200px;
+	margin: 0 auto;
+	background: url('../obrazki/logo.jpg') no-repeat left top;
+	height: 157px;
+	border: 5px solid #ffffff;
+}
+
+#logo h1, #logo h2 {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#logo h1 {
+	padding: 10px 5px 0 20px;
+	color: #2C2E22;
+}
+
+#logo h2 {
+	padding: 45px 0 0 0;
+	font-style: italic;
+}
+
+#logo p {
+	clear: left;
+	margin: 0;
+	padding: 0 0 0 20px;
+	line-height: normal;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+
+/* Strona */
+
+#strona {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 0px 20px 20px 20px;
+    background: #FFFFFF;
+    border: 5px solid #ffffff;
+    border-top: none;
+}
+
+
+/* Forum tytuł */
+
+.forum .gora {
+    padding: 20px 0 0 0;
+}
+
+.forum .gora .pasek {
+    height: 50px;
+    width: 2px;
+    float: left;
+}
+
+.forum .gora .lewy {
+    background: url('../obrazki/duzy-lewy.gif') no-repeat left top;
+}
+
+.forum .gora .prawy {
+    background: url('../obrazki/duzy-prawy.gif') no-repeat left top;
+}
+
+.forum .gora .srodek {
+    background: url('../obrazki/duzy-srodek.gif') repeat-x left bottom;
+}
+
+.forum .gora .tekst {
+    margin: 0;
+    font-weight: normal;
+    color: white;
+}
+
+.forum .gora .tytul h1.tekst {
+    padding: 10px 0  0 15px;
+    font-weight: bold;
+    font-size: 2.0em;
+}
+
+.forum .gora .nowy_temat h1.tekst {
+    padding: 10px 0;
+    font-size: 2.0em;
+    text-align: center;
+}
+
+.forum .gora .tytul .srodek {
+    width: 942px;
+}
+
+
+.forum .gora .nowy_temat .srodek {
+    width: 150px;
+}
+
+.forum .opis {
+    margin: 0;
+    padding: 5px 0px 0px 15px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000;
+}
+
+/* Forum nagłówki */
+
+.forum .naglowki {
+    margin: 10px 0 0 0;
+}
+
+.forum .naglowki .pasek {
+    height: 30px;
+    width: 2px;
+    float: left;
+}
+
+.forum .naglowki .lewy {
+    background: url('../obrazki/maly-lewy.gif') no-repeat left top;
+}
+
+.forum .naglowki .prawy {
+    background: url('../obrazki/maly-prawy.gif') no-repeat left top;
+}
+
+.forum .naglowki .srodek {
+    background: url('../obrazki/maly-srodek.gif') repeat-x left bottom;
+}
+
+.forum .naglowki h2.tekst {
+    margin: 0;
+    text-align: center;
+    padding: 7.5px 0;
+}
+
+.forum .naglowki .temat .szerokosc {
+    width: 556px;
+}
+
+.forum .naglowki .odpowiedzi .szerokosc {
+    width: 96px;
+}
+
+.forum .naglowki .data_modyfikacji .szerokosc {
+    width: 136px;
+}
+
+.forum .naglowki .szerokosc {
+    width: 146px;
+}
+
+/* Forum zawartość */
+
+.forum .zawartosc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.forum .zawartosc li {
+    padding: 5px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    font-size: .8em;
+}
+
+.forum .zawartosc .tabelka {
+    float: left;
+}
+
+.forum .zawartosc .tematy {
+    width: 560px;
+}
+
+.forum .zawartosc .odpowiedzi {
+    width: 100px;
+    text-align: center;
+}
+
+.forum .zawartosc .autorzy {
+    width: 150px;
+    text-align: center;
+}
+
+.forum .zawartosc .ostatnie_posty {
+    width: 150px;
+    text-align: center;
+}
+
+.forum .zawartosc .daty_modyfikacji {
+    width: 140px;
+    text-align: center;
+}
+
+
+/* Stopka */
+
+footer {
+	text-align: center;
+	font-size: 9px;
+        color: white;
+}
+
+
+footer a {
+	text-align: center;
+	font-size: 9px;
+        color: cyan;
+}

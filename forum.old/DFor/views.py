@@ -14,17 +14,6 @@ def widokFora(request):
 	uzytkownik = Uzytkownik.objects.get(id=request.user.id)
     return render_to_response("fora.html", {'fora': Forum.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
-def widokUzytkownicy(request):
-    czyZalogowany = request.user.is_authenticated();
-    uzytkownik = '';
-    if (czyZalogowany):
-	uzytkownik = Uzytkownik.objects.get(id=request.user.id)
-    return render_to_response("uzytkownicy.html", {'uzytkownicy': Uzytkownik.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
-
-def widokWyloguj(request):
-    logout(request)
-    return HttpResponseRedirect('/dfor')
-    
 def widokOdpowiedz(request, pk):
   data = {}
   data.update(csrf(request))

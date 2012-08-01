@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Forum - DFor: {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+</head>
+
+<body>
+<!-- Początek nagłówka z menu -->
+<header>
+    <div id="menu">
+	{% block menu %}
+        <ul>
+	    <li class="current_page_item"><a href="/dfor">Główna</a></li>
+            <li><a href="/dfor/szukaj">Szukaj</a></li>
+            {% if czyZalogowany %}
+		<li><a href="/dfor/uzytkownicy">Użytkownicy</a></li>
+		<li><a href="/dfor/grupy">Grupy</a></li>
+		<li><a href="/dfor/profil">Profil</a></li>
+		<li><a href="/dfor/wyloguj">Wyloguj ({{ uzytkownik }})</a></li>
+	    {% else %}
+		<li><a href="/dfor/zaloguj/?next=/dfor">Zaloguj</a></li>
+	    {% endif %}
+	</ul>
+	{% endblock %}
+    </div>
+</header>
+<!-- Koniec nagłówka z menu -->
+
+<!-- Początek logo -->
+<div id="logo">
+    <h1><a href="">Forum - DFor</a></h1>
+    <h2>dla każdego</h2>
+</div>
+<!-- Koniec logo -->
+
+<hr />
+
+<!-- Początek zawartości strony -->
+<div id="strona">
+    {% block zawartosc %}
+
+    {% endblock %}
+</div>
+<!-- Koniec zawartości strony -->
+
+<!-- Poczatek stopki -->
+<footer>
+	<p>&copy; Copyright 2012 ZiomekH & Adi.<br> Designed by <a href="http://www.runelocus.com/" title="D.Juwara">D.Juwara</a> for <a href="http://www.zymic.com" title="Zymic Free Templates">Zymic</a> <a href="http://www.zymic.com/free-templates">Free Templates</a>. <a href="http://www.zymic.com/free-web-hosting/">Free Web Hosting</a>.</p>
+</footer>
+<!-- Koniec stopki -->
+</html>
