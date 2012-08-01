@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
 from django.views.generic import *
 from DFor.views import *
 
@@ -7,6 +8,8 @@ urlpatterns = patterns('',
     url(r'^wyloguj/$', widokWyloguj),
     url(r'^$', widokFora),
     url(r'^uzytkownicy/$', widokUzytkownicy),
+    url(r'^uzytkownik/(?P<id>\d+)/$', widokUzytkownik),
     
-    url(r'^(?P<pk>\d+)$', DetailView.as_view(model=Temat, template_name="tematy.html"))
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^(?P<pk>\d+)/$', DetailView.as_view(model=Temat, template_name="tematy.html"))
 )

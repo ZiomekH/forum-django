@@ -1,0 +1,13 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Użytkownik {{ uzytk.uzytkownik.username }}
+{% endblock %}
+
+{% block style %}
+<!--     <link rel="stylesheet" type="text/css" href="/static/css/uzytkownicy.css" /> -->
+{% endblock %}
+
+{% block zawartosc %}
+   <img src="{{ media }}{{ uzytk.avatar }}" />{{ media }}{{ uzytk.avatar }} 
+{% endblock %}

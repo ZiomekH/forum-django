@@ -7,20 +7,30 @@ from django.contrib.auth import authenticate, login, logout
 from models import *
 from forms import *
 
-def widokFora(request):
-    czyZalogowany = request.user.is_authenticated();
-    uzytkownik = '';
+def sprZalogowania(request):
+    return request.user.is_authenticated();
+
+def sprUzytkownika(request, czyZalogowany):
     if (czyZalogowany):
-	uzytkownik = Uzytkownik.objects.get(id=request.user.id)
+	return Uzytkownik.objects.get(id=request.user.id)
+    return '';
+    
+def widokFora(request):
+    czyZalogowany = sprZalogowania(request);
+    uzytkownik = sprUzytkownika(request, czyZalogowany);
     return render_to_response("fora.html", {'fora': Forum.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
 def widokUzytkownicy(request):
-    czyZalogowany = request.user.is_authenticated();
-    uzytkownik = '';
-    if (czyZalogowany):
-	uzytkownik = Uzytkownik.objects.get(id=request.user.id)
+    czyZalogowany = sprZalogowania(request);
+    uzytkownik = sprUzytkownika(request, czyZalogowany);
     return render_to_response("uzytkownicy.html", {'uzytkownicy': Uzytkownik.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+def widokUzytkownik(request, id):
+    from django.conf import settings
+    czyZalogowany = sprZalogowania(request);
+    uzytkownik = sprUzytkownika(request, czyZalogowany);
+    return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
+    
 def widokWyloguj(request):
     logout(request)
     return HttpResponseRedirect('/dfor')
