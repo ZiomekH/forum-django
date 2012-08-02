@@ -1,26 +1,47 @@
 {% extends "baza.html" %}
 
+{% block title %}
+    Zaloguj
+{% endblock %}
+
+{% block style %}
+     <link rel="stylesheet" type="text/css" href="/static/css/zaloguj.css" />
+{% endblock %}
+
+<!--{% block head %}
+    <script type="text/javascript">
+	$(document).ready(function() {
+	    window.onload = function() {
+// 		$("#id_username").focus();
+		alert('test');
+             };  
+        }); 
+    </script>
+{% endblock %}-->
+
 {% block zawartosc %}
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<form method="post" action="{% url django.contrib.auth.views.login %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-
+   <div class="zaloguj">
+   	{% if form.errors %}
+	    <p>Twoj login lub hasło są niepoprawne.</p>
+	{% endif %}
+	<form method="post" action="{% url django.contrib.auth.views.login %}">
+	    {% csrf_token %}
+	    <div class="tabelka opis">
+		{{ form.username.label_tag }}
+	    </div>
+	    <div class="tabelka">
+		{{ form.username }}
+	    </div>
+	    <div style="clear: both;"></div>
+	    <div class="tabelka opis">
+		{{ form.password.label_tag }}
+	    </div>
+	    <div class="tabelka">
+		{{ form.password }}
+	    </div>
+	    <div style="clear: both;"></div>
+	    <input type="submit" value="zaloguj" />
+	    <input type="hidden" name="next" value="{{ next }}" />
+	</form>
+    </div>
 {% endblock %}
