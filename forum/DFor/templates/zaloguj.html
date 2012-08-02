@@ -8,16 +8,14 @@
      <link rel="stylesheet" type="text/css" href="/static/css/zaloguj.css" />
 {% endblock %}
 
-<!--{% block head %}
+<{% block head %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
     <script type="text/javascript">
-	$(document).ready(function() {
-	    window.onload = function() {
-// 		$("#id_username").focus();
-		alert('test');
-             };  
-        }); 
+	$(document).ready(function(){
+	    $("#id_username").focus();
+	});
     </script>
-{% endblock %}-->
+{% endblock %}
 
 {% block zawartosc %}
    <div class="zaloguj">

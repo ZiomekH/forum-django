@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^uzytkownicy/$', widokUzytkownicy),
     url(r'^uzytkownik/(?P<id>\d+)/$', widokUzytkownik),
     url(r'^temat/(?P<id>\d+)/$', widokTemat),
+    url(r'^profil/$', widokProfil),
     
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
 )

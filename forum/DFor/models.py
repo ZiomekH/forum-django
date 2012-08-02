@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from datetime import date
 
+PLEC = (('K', 'Kobieta'),('M', 'Mezczyzna'))
+
 class Uzytkownik(models.Model):
   uzytkownik = models.OneToOneField(User)
   data_urodzenia = models.DateField(blank=True, null=True)
-  plec = models.CharField(blank=True, max_length=1)
+  plec = models.CharField(blank=True, max_length=1, choices=PLEC)
   miejscowosc = models.CharField(blank=True, max_length=100)
   avatar = models.ImageField(blank=True, upload_to='avatars')
   podpis = models.TextField(blank=True)

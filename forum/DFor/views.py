@@ -39,6 +39,13 @@ def widokUzytkownik(request, id):
     if (czyZalogowany == False):
       return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/uzytkownik/' + id)
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
+
+def widokProfil(request):
+    czyZalogowany = sprZalogowania(request);
+    uzytkownik = sprUzytkownika(request, czyZalogowany);
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/profil')
+    return render_to_response("profil.html", {'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
     
 def widokWyloguj(request):
     logout(request)
