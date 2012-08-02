@@ -5,9 +5,52 @@
 {% endblock %}
 
 {% block style %}
-<!--     <link rel="stylesheet" type="text/css" href="/static/css/uzytkownicy.css" /> -->
+     <link rel="stylesheet" type="text/css" href="/static/css/uzytkownik.css" />
 {% endblock %}
 
 {% block zawartosc %}
-   <img src="{{ media }}{{ uzytk.avatar }}" />{{ media }}{{ uzytk.avatar }} 
+   <div class="uzytkownik">
+	<div class="naglowek">
+	    <div class="login">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Profil użytkownika {{ uzytk.uzytkownik.username }}
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+	<div class="zawartosc">
+	    {% if uzytk.avatar %}
+		<p><img src="{{ media }}{{ uzytk.avatar }}" /></p>
+	    {% endif %}
+	    <p>
+	    Email: <a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a><br>
+	    
+	    {% if uzytk.plec = 'K' %}
+		Płeć: Kobieta<br>
+	    {% elif uzytk.plec = 'M' %}
+		Płeć: Mężczyzna<br>
+	    {% endif %}
+	    
+	    {% if uzytk.miejscowosc %}
+		Miejscowość: {{ uzytk.miejscowosc }}<br>
+	    {% endif %}
+	    
+	    {% if uzytk.data_urodzenia %}
+		Data urodzenia: {{ uzytk.data_urodzenia }}<br>
+	    {% endif %}
+	    Grupy: (do zrobienia)
+	    </p>
+	   
+	    <p>
+		<a href="?">Ostatni post</a><br>
+		<a href="?">Wszystkie posty użytkownika</a>
+	    </p>
+	</div>
+    </div>
+	
 {% endblock %}

@@ -29,11 +29,15 @@ def widokTemat(request, id):
 def widokUzytkownicy(request):
     czyZalogowany = sprZalogowania(request);
     uzytkownik = sprUzytkownika(request, czyZalogowany);
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/uzytkownicy')
     return render_to_response("uzytkownicy.html", {'uzytkownicy': Uzytkownik.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
 def widokUzytkownik(request, id):
     czyZalogowany = sprZalogowania(request);
     uzytkownik = sprUzytkownika(request, czyZalogowany);
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/uzytkownik/' + id)
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
     
 def widokWyloguj(request):
