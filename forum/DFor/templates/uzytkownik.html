@@ -28,12 +28,20 @@
 		<p><img src="{{ media }}{{ uzytk.avatar }}" /></p>
 	    {% endif %}
 	    <p>
-	    Email: <a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a><br>
+	    {% if uzytk.uzytkownik.first_name %}
+		{{ uzytk.uzytkownik.first_name  }} 
+	    {% endif %}
+	    {% if uzytk.uzytkownik.last_name %}
+		{{ uzytk.uzytkownik.last_name  }} 
+	    {% else %}
+	    {% endif %}
+	    
+	    <a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a><br>
 	    
 	    {% if uzytk.plec = 'K' %}
-		Płeć: Kobieta<br>
+		Kobieta<br>
 	    {% elif uzytk.plec = 'M' %}
-		Płeć: Mężczyzna<br>
+		Mężczyzna<br>
 	    {% endif %}
 	    
 	    {% if uzytk.miejscowosc %}
@@ -43,7 +51,9 @@
 	    {% if uzytk.data_urodzenia %}
 		Data urodzenia: {{ uzytk.data_urodzenia }}<br>
 	    {% endif %}
-	    Grupy: (do zrobienia)
+	    Grupy: (do zrobienia) <br>
+	    Dołączył: {{ uzytk.uzytkownik.date_joined  }} <br>
+	    Ostatnio zalogowany: {{ uzytk.uzytkownik.last_login  }}
 	    </p>
 	   
 	    <p>

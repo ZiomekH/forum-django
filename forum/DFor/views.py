@@ -11,49 +11,55 @@ from forms import *
 def sprZalogowania(request):
     return request.user.is_authenticated();
 
+    
 def sprUzytkownika(request, czyZalogowany):
     if (czyZalogowany):
 	return Uzytkownik.objects.get(id=request.user.id)
     return ''
+    
     
 def widokFora(request):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     return render_to_response("fora.html", {'fora': Forum.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+    
 def widokTemat(request, id):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     return render_to_response("temat.html", {'temat': Temat.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
-    
+  
+  
 def widokUzytkownicy(request):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     if (czyZalogowany == False):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/uzytkownicy')
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
     return render_to_response("uzytkownicy.html", {'uzytkownicy': Uzytkownik.objects.all(), 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+    
 def widokUzytkownik(request, id):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     if (czyZalogowany == False):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/uzytkownik/' + id)
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+    
 def widokProfil(request):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     if (czyZalogowany == False):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=/dfor/profil')
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
     dane = {}
     dane.update(csrf(request))
     if request.method == "POST":
-	form = UzytkownikForm(request.POST, instance=uzytkownik)
+	form = formularzUzytkownik(request.POST, instance=uzytkownik)
 	if form.is_valid():
 	    form.save()
-	return HttpResponseRedirect('/dfor')
+	return HttpResponseRedirect('/dfor/profil')
     else:
-	form = UzytkownikForm(instance=uzytkownik)
+	form = formularzUzytkownik(instance=uzytkownik)
 	
     dane['form'] = form
     dane['media'] = settings.MEDIA_URL
@@ -61,30 +67,69 @@ def widokProfil(request):
     dane['uzytkownik'] = uzytkownik
     
     return render_to_response('profil.html', dane)
+
     
+def widokOdpowiedz(request, id):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST)
+	post = formPost.save(commit=False)
+	post.autor = uzytkownik
+	post.save()
+	formPost.save_m2m()
+	temat = Temat.objects.get(id=id)
+	temat.posty.add(post)
+	temat.save()
+	return HttpResponseRedirect('/dfor/temat/' + id)
+    else:
+	formPost = formularzPost()
+	
+    dane['formPost'] = formPost
+    dane['czyZalogowany'] = czyZalogowany
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('post.html', dane)
+
+
+def widokNowyTemat(request, id):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST)
+	formTemat = formularzTemat(request.POST)
+	post = formPost.save(commit=False)
+	post.autor = uzytkownik
+	post.save()
+	formPost.save_m2m()
+	temat = formTemat.save(commit=False)
+	temat.save()
+	temat.posty.add(post)
+	formTemat.save_m2m()
+	forum = Forum.objects.get(id=id)
+	forum.tematy.add(temat)
+	forum.save()
+	return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
+    else:
+	formPost = formularzPost()
+	formTemat = formularzTemat()
+	
+    dane['formPost'] = formPost
+    dane['formTemat'] = formTemat
+    dane['czyZalogowany'] = czyZalogowany
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('post.html', dane)
+    
+
 def widokWyloguj(request):
     logout(request)
     return HttpResponseRedirect('/dfor')
-    
-def widokOdpowiedz(request, pk):
-  data = {}
-  data.update(csrf(request))
-  if request.method == "POST":
-    form = PostForm(request.POST)
-    if form.is_valid():
-      #dodawanie do bazy
-      return render_to_response('.', data)
-  else:
-    form = PostForm()
-
-  data['form'] = form  
-  return render_to_response('odpowiedz.html', data)
-
-    
-def widok_wyloguj(request):
-    logout(request)
-    return HttpResponseRedirect('/dfor')
-    
-def widok(request):
-    zmienna = 'cos';
-    return render_to_response("widok.html", {'request':request})

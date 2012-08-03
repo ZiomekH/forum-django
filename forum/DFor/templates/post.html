@@ -1,14 +1,18 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    Profil
+    Nowy temat / Odpowiedz
 {% endblock %}
 
 {% block zawartosc %}
   <p>
     <form action="." method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Zmień" />
+    {% if formTemat %}
+	{{ formTemat.as_p }}
+    {% endif %}
+    {{ formPost.as_p }}
+    <input type="submit" value="Dodaj" />
     </form>
   </p> 
 {% endblock %}
+
