@@ -76,7 +76,7 @@
 		{% if post.autor.data_urodzenia %}
 		    Wiek: {{ post.autor.wiek }}<br>
 		{% endif %}
-		Posty: (do zrobienia)</p>
+		Posty: {{ post.autor.iloscPostow }}</p>
 	    </div>
 	    <div class="tabelka wiadomosc">
 		<p class="daty">Dodany {{ post.data_utworzenia }}
@@ -88,7 +88,7 @@
 		{% if post.autor.podpis %}
 		kreska
 		{% endif %}
-		">{{ post.tekst }}</p>
+		">{{ post.tekst|safe }}</p>
 		{% if post.autor.podpis %}
 		<p class="podpis">{{ post.autor.podpis }}</p>
 		{% endif %}

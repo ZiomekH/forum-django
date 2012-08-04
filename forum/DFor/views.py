@@ -45,6 +45,10 @@ def widokUzytkownik(request, id):
       return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+def widokPostyUzytkownika(request, id):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    return render_to_response("posty.html", {'posty': Post.objects.filter(autor=id).order_by('-data_modyfikacji'), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
     
 def widokProfil(request):
     czyZalogowany = sprZalogowania(request)
@@ -93,7 +97,7 @@ def widokOdpowiedz(request, id):
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
 	
-    return render_to_response('post.html', dane)
+    return render_to_response('nowypost.html', dane)
 
 
 def widokNowyTemat(request, id):
@@ -109,14 +113,14 @@ def widokNowyTemat(request, id):
 	post = formPost.save(commit=False)
 	post.autor = uzytkownik
 	post.save()
-	formPost.save_m2m()
 	temat = formTemat.save(commit=False)
 	temat.save()
 	temat.posty.add(post)
-	formTemat.save_m2m()
 	forum = Forum.objects.get(id=id)
 	forum.tematy.add(temat)
 	forum.save()
+	formPost.save_m2m()
+	formTemat.save_m2m()
 	return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
     else:
 	formPost = formularzPost()
@@ -127,7 +131,7 @@ def widokNowyTemat(request, id):
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
 	
-    return render_to_response('post.html', dane)
+    return render_to_response('nowypost.html', dane)
     
 
 def widokWyloguj(request):

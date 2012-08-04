@@ -24,6 +24,9 @@ class Uzytkownik(models.Model):
   
   def wiek(self):
       return int((abs(date.today() - self.data_urodzenia)).days/365.25);
+      
+  def iloscPostow(self):
+      return Post.objects.filter(autor=self).count()
 
 class Post(models.Model):
   autor = models.ForeignKey(Uzytkownik)

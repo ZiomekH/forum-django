@@ -1,6 +1,5 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from models import *
-
 
 class formularzUzytkownik(ModelForm):
     class Meta:
@@ -12,7 +11,9 @@ class formularzPost(ModelForm):
     class Meta:
 	model = Post
 	fields = ('tekst',)
-	
+	widgets = {
+            'tekst': Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
 
 class formularzTemat(ModelForm):
     class Meta:

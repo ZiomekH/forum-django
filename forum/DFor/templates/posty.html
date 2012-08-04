@@ -1,0 +1,113 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    {{ temat.tytul }}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/posty.css" />
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="temat">
+	<div class="gora">
+	    <div class="tytul">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek">
+		    <h1 class="tekst">
+			Posty użytkownika: {{ posty.all.0.autor }}
+		    </h1>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+	{% for post in posty %}
+	<div class="naglowki">
+	    <div class="autor">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Autor
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div class="wiadomosc">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek szerokosc">
+		    <h2 class="tekst">
+			Wiadomość
+		    </h2>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+	<div class="post">
+	    <div class="tabelka autor">
+		<p class="tekst 
+		{% if post.autor.plec = 'K' %}
+		    kobieta
+		{% elif post.autor.plec = 'M' %}
+		    mezczyzna
+		{% else %}
+		    nieznany
+		{% endif %}
+		">
+		<a href="/dfor/uzytkownik/{{ post.autor.id }}">{{ post.autor }}</a></p>
+		{% if post.autor.avatar %}
+		    <p><img src="{{ media }}{{ post.autor.avatar }}" /></p>
+		{% endif %}
+		<p>
+		{% if post.autor.data_urodzenia %}
+		    Wiek: {{ post.autor.wiek }}<br>
+		{% endif %}
+		Posty: {{ post.autor.iloscPostow }}</p>
+	    </div>
+	    <div class="tabelka wiadomosc">
+		<p class="daty">Dodany {{ post.data_utworzenia }}
+		{% if post.zmieniony %}
+		    zmieniony {{ post.data_modyfikacji }}
+		{% endif %}
+		</p>
+		<p class="tresc 
+		{% if post.autor.podpis %}
+		kreska
+		{% endif %}
+		">{{ post.tekst|safe }}</p>
+		{% if post.autor.podpis %}
+		<p class="podpis">{{ post.autor.podpis }}</p>
+		{% endif %}
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	{% endfor %}
+	
+	<div class="gora">
+	    <div class="tytul">
+		<div class="pasek lewy"></div>
+		<div class="pasek srodek">
+		    <h1 class="tekst">
+			{{ temat.tytul }}
+		    </h1>
+		</div>
+		<div class="pasek prawy"></div>
+	    </div>
+	    <a href="odpowiedz/">
+		<div class="odpowiedz">
+		    <div class="pasek lewy"></div>
+		    <div class="pasek srodek">
+			<h1 class="tekst">
+			    Odpowiedz
+			</h1>
+		    </div>
+		    <div class="pasek prawy"></div>
+		</div>
+	    </a>
+	    <div style="clear: both;"></div>
+	</div>
+    </div>
+{% endblock %}
