@@ -33,6 +33,7 @@ class Post(models.Model):
   data_utworzenia = models.DateTimeField(auto_now_add=True)
   data_modyfikacji = models.DateTimeField(auto_now=True)
   tekst = models.TextField()
+  safe = models.BooleanField(default=False)
   
   def __unicode__(self):
     return self.autor.uzytkownik.username + ' ' + str(self.data_modyfikacji)

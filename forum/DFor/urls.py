@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^temat/(?P<id>\d+)/$', widokTemat),
     url(r'^temat/(?P<id>\d+)/odpowiedz/$', widokOdpowiedz),
     
+    url(r'^post/edytuj/(?P<id>\d+)/$', widokEdytujPost),
+    url(r'^post/usun/(?P<id>\d+)/$', widokUsunPost),
+    
     url(r'^uzytkownicy/$', widokUzytkownicy),
     url(r'^uzytkownik/(?P<id>\d+)/$', widokUzytkownik),
     url(r'^uzytkownik/posty/(?P<id>\d+)/$', widokPostyUzytkownika),

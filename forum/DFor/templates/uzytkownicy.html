@@ -10,71 +10,71 @@
 
 {% block zawartosc %}
     <div class="uzytkownicy">
-	<div class="naglowki">
+	<div class="naglowek2">
 	    <div class="login">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Login
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div class="email">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			E-Mail
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div class="plec">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Płeć
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div class="skad">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Skąd
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div class="posty">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Posty
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div style="clear: both;"></div>
 	</div>
 	
-	<div class="zawartosc">
-	    <div class="tabelka login">
+	<div class="tabela">
+	    <div class="ulozenie login">
 		<ul>
 		{% for uzytk in uzytkownicy %}
 		    <li><a href="/dfor/uzytkownik/{{ uzytk.id }}">{{ uzytk.uzytkownik.username }}</a></li>
 		{% endfor %}
 		</ul>
 	    </div>
-	    <div class="tabelka email">
+	    <div class="ulozenie email">
 		<ul>
 		{% for uzytk in uzytkownicy %}
 		    <li><a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a></li>
 		{% endfor %} 
 		</ul>
 	    </div>
-	    <div class="tabelka plec">
+	    <div class="ulozenie plec">
 		<ul>
 		{% for uzytk in uzytkownicy %}
 		    <li>
@@ -89,7 +89,7 @@
 		{% endfor %}    
 		</ul>
 	    </div>
-	    <div class="tabelka skad">
+	    <div class="ulozenie skad">
 		<ul>
 		{% for uzytk in uzytkownicy %}
 		    <li>
@@ -102,7 +102,7 @@
 		{% endfor %}  
 		</ul>
 	    </div>
-	    <div class="tabelka posty">
+	    <div class="ulozenie posty">
 		<ul>
 		{% for uzytk in uzytkownicy %}
 		    <li>{{ uzytk.iloscPostow }}</li>

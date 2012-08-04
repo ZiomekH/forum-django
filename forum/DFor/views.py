@@ -94,10 +94,12 @@ def widokOdpowiedz(request, id):
 	formPost = formularzPost()
 	
     dane['formPost'] = formPost
+    dane['zadanie'] = 'odpowiedz'
+    dane['temat'] = Temat.objects.get(id=id)
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
 	
-    return render_to_response('nowypost.html', dane)
+    return render_to_response('formularz_post.html', dane)
 
 
 def widokNowyTemat(request, id):
@@ -128,11 +130,61 @@ def widokNowyTemat(request, id):
 	
     dane['formPost'] = formPost
     dane['formTemat'] = formTemat
+    dane['zadanie'] = 'nowy_temat'
+    dane['forum'] = Forum.objects.get(id=id)
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
 	
-    return render_to_response('nowypost.html', dane)
+    return render_to_response('formularz_post.html', dane)
+
+
+def widokEdytujPost(request, id):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany == False):
+	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+	
+    post = Post.objects.get(id=id)
+    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
+	return HttpResponseRedirect('/dfor/')
+	
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST, instance=Post.objects.get(id=id))
+	formPost.save()
+	return HttpResponseRedirect('/dfor/')
+    else:
+	formPost = formularzPost(instance=Post.objects.get(id=id))
+	
+    dane['formPost'] = formPost
+    dane['zadanie'] = 'edytuj'
+    dane['temat'] = Temat.objects.filter(posty=post)[0]
+    dane['czyZalogowany'] = czyZalogowany
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('formularz_post.html', dane)
+
+
+def widokUsunPost(request, id):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany == False):
+	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+	
+    post = Post.objects.get(id=id)
+    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
+	return HttpResponseRedirect('/dfor/')
+
+    temat = Temat.objects.filter(posty=post)[0]
+    if (temat.posty.count() == 1):
+	temat.delete()
+	post.delete()
+	return HttpResponseRedirect('/dfor/')	
     
+    post.delete()
+    return HttpResponseRedirect('/dfor/')
+
 
 def widokWyloguj(request):
     logout(request)

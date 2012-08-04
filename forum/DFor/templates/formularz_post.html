@@ -1,0 +1,77 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    {% if zadanie == 'odpowiedz' %}
+	Odpowiedź w {{ temat.tytul }}
+    {% elif zadanie == 'nowy_temat' %}
+	Tworzenie nowego tematu w {{ forum.nazwa }}
+    {% elif zadanie == 'edytuj' %}
+	Edycja postu w {{ temat.tytul }}
+    {% endif %}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/formularz_post.css" />
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+	    $('#form_submit').hide();
+ 	    $('#id_tytul').css('width','796px');
+ 	    $('#id_dd').css({'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'});
+	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij(this);\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}</h2></div><div class=\"belka prawy\"></div></a>");
+	});
+	function slij(sender) {
+ 	    $('#id_{{ formPost.safe.html_name }}').val('on');
+	    $(sender).parents('form').submit();
+	}
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple"
+	});
+    </script>
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="formularz_post">
+	<div class="naglowek2">
+	    <div class="tytul">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc" id="id_tytul">
+		    <h2 class="tekst">
+			{% if zadanie == 'odpowiedz' %}
+			    Odpowiedź w {{ temat.tytul }}
+			{% elif zadanie == 'nowy_temat' %}
+			    Tworzenie nowego tematu w {{ forum.nazwa }}
+			{% elif zadanie == 'edytuj' %}
+			    Edycja postu w {{ temat.tytul }}
+			{% endif %}
+		    </h2>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    <form action="." method="post">
+	    <div class="guzik" id="id_guzik"></div>
+	    <div style="clear: both;"></div>
+	</div>
+  
+	<div class="zawartosc">
+	    {% csrf_token %}
+	    {% if formTemat %}
+		{{ formTemat.as_table }}
+	    {% endif %}    
+	    <div align='center'>
+	    {{ formPost.tekst }}
+	    </div>
+	    {{ formPost.safe }}
+	    <p id="form_submit">
+		<input type="submit" value="{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}" />
+	    </p>
+	    </form>
+	</div>
+    </div>
+{% endblock %}
+

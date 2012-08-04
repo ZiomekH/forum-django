@@ -54,10 +54,11 @@
 	    Dołączył: {{ uzytk.uzytkownik.date_joined  }} <br>
 	    Ostatnio zalogowany: {{ uzytk.uzytkownik.last_login  }}
 	    </p>
-	   
-	    <p>
-		<a href="/dfor/uzytkownik/posty/{{ uzytk.id }}">Wszystkie posty użytkownika</a>
-	    </p>
+	    {% if uzytk.iloscPostow > 0 %}
+		<p>
+		    <a href="/dfor/uzytkownik/posty/{{ uzytk.id }}">Wszystkie posty użytkownika</a>
+		</p>
+	    {% endif %}
 	</div>
     </div>
 	
