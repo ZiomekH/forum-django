@@ -1,139 +1,90 @@
-/* Temat tytuł */
+/* Temat tytul */
 
-.temat .gora {
+.temat {
     padding: 20px 0 0 0;
 }
 
-.temat .gora .pasek {
-    height: 50px;
-    width: 2px;
-    float: left;
-}
-
-.temat .gora .lewy {
-    background: url('../obrazki/duzy-lewy.gif') no-repeat left top;
-}
-
-.temat .gora .prawy {
-    background: url('../obrazki/duzy-prawy.gif') no-repeat left top;
-}
-
-.temat .gora .srodek {
-    background: url('../obrazki/duzy-srodek.gif') repeat-x left bottom;
-}
-
-.temat .gora .tekst {
-    margin: 0;
-    font-weight: normal;
-    color: white;
-}
-
-.temat .gora .tytul h1.tekst {
+.naglowek1 .tytul h1.tekst {
     padding: 10px 0  0 15px;
     font-weight: bold;
     font-size: 2.0em;
 }
 
-.temat .gora .odpowiedz h1.tekst {
+.naglowek1 .odpowiedz h1.tekst {
     padding: 10px 0;
     font-size: 2.0em;
     text-align: center;
 }
 
-.temat .gora .tytul .srodek {
+.naglowek1 .tytul .srodek {
     width: 942px;
 }
 
-
-.temat .gora .odpowiedz .srodek {
+.naglowek1 .odpowiedz .srodek {
     width: 150px;
 }
 
 /* Temat nagłówki */
 
-.temat .naglowki {
+.naglowek2 {
     margin: 10px 0 0 0;
 }
 
-.temat .naglowki .pasek {
-    height: 30px;
-    width: 2px;
-    float: left;
-}
-
-.temat .naglowki .lewy {
-    background: url('../obrazki/maly-lewy.gif') no-repeat left top;
-}
-
-.temat .naglowki .prawy {
-    background: url('../obrazki/maly-prawy.gif') no-repeat left top;
-}
-
-.temat .naglowki .srodek {
-    background: url('../obrazki/maly-srodek.gif') repeat-x left bottom;
-}
-
-.temat .naglowki h2.tekst {
-    margin: 0;
-    text-align: center;
-    padding: 7.5px 0;
-}
-
-.temat .naglowki .autor .szerokosc {
+.naglowek2 .autor .szerokosc {
     width: 196px;
 }
 
-.temat .naglowki .wiadomosc .szerokosc {
+.naglowek2 .wiadomosc .szerokosc {
     width: 896px;
 }
 
-/* Temat post */
 
-.temat .post .tabelka {
+/* Temat posty */
+
+.post .tabelka {
     float: left;
 }
 
-.temat .post .autor {
+.post .autor {
     margin: 0 0 0 10px;
     width: 190px;
 }
 
-.temat .post .autor .tekst {
+.post .autor .tekst {
     font-weight: bold;
 }
 
-.temat .post .autor .nieznany a{
+.post .autor .nieznany a{
     color: #000;
 }
 
-.temat .post .autor .kobieta a{
+.post .autor .kobieta a{
     color: #f622cc;
 }
 
-.temat .post .autor .mezczyzna a{
+.post .autor .mezczyzna a{
     color: #120dc9;
 }
 
-.temat .post .wiadomosc {
+.post .wiadomosc {
     margin: 0 0 0 10px;
     width: 890px;
 }
 
-.temat .post .wiadomosc .tresc {
-      margin: 10px 0 0 0;
+.post .wiadomosc .tresc {
+    margin: 10px 0 0 0;
 }
 
-.temat .post .wiadomosc .kreska {
+.post .wiadomosc .kreska {
     background: url('../obrazki/linia.gif') repeat-x left bottom;
 }
 
-.temat .post .podpis {
+.post .podpis {
     margin: 0;
     font-style:italic;
 }
 
-
-.temat .post .daty {
+.post .daty {
     margin: 0;
     padding: 5px 0px 0px 0px;
     background: url('../obrazki/linia.gif') repeat-x left bottom;

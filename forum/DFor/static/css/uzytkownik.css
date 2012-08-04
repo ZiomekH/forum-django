@@ -2,45 +2,18 @@
     margin-left: auto;
     margin-right: auto;
     width: 500px;
-}
-
-/* Użytkownik nagłówki */
-
-.uzytkownik .naglowek {
     padding: 20px 0 0 0;
 }
 
-.uzytkownik .naglowek .pasek {
-    height: 30px;
-    width: 2px;
-    float: left;
-}
+/* Użytkownik naglowki */
 
-.uzytkownik .naglowek .lewy {
-    background: url('../obrazki/maly-lewy.gif') no-repeat left top;
-}
-
-.uzytkownik .naglowek .prawy {
-    background: url('../obrazki/maly-prawy.gif') no-repeat left top;
-}
-
-.uzytkownik .naglowek .srodek {
-    background: url('../obrazki/maly-srodek.gif') repeat-x left bottom;
-}
-
-.uzytkownik .naglowek h2.tekst {
-    margin: 0;
-    text-align: center;
-    padding: 7.5px 0;
-}
-
-.uzytkownik .naglowek .szerokosc {
+.naglowek2 .szerokosc {
     width: 496px;
 }
 
 /* Forum zawartość */
 
-.uzytkownik .zawartosc {
+.zawartosc {
   text-align: center;   
 }
 

@@ -1,47 +1,48 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    {{ temat.tytul }}
+    Posty użytkownika: {{ posty.all.0.autor }}
 {% endblock %}
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="/static/css/posty.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/temat.css" />   
 {% endblock %}
 
 {% block zawartosc %}
-    <div class="temat">
-	<div class="gora">
+    <div class="posty">
+	<div class="naglowek1">
 	    <div class="tytul">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek">
+		<div class="belka lewy"></div>
+		<div class="belka srodek">
 		    <h1 class="tekst">
 			Posty użytkownika: {{ posty.all.0.autor }}
 		    </h1>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div style="clear: both;"></div>
 	</div>
 	
 	{% for post in posty %}
-	<div class="naglowki">
+	<div class="naglowek2">
 	    <div class="autor">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Autor
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div class="wiadomosc">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek szerokosc">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
 			Wiadomość
 		    </h2>
 		</div>
-		<div class="pasek prawy"></div>
+		<div class="belka prawy"></div>
 	    </div>
 	    <div style="clear: both;"></div>
 	</div>
@@ -85,29 +86,5 @@
 	    <div style="clear: both;"></div>
 	</div>
 	{% endfor %}
-	
-	<div class="gora">
-	    <div class="tytul">
-		<div class="pasek lewy"></div>
-		<div class="pasek srodek">
-		    <h1 class="tekst">
-			{{ temat.tytul }}
-		    </h1>
-		</div>
-		<div class="pasek prawy"></div>
-	    </div>
-	    <a href="odpowiedz/">
-		<div class="odpowiedz">
-		    <div class="pasek lewy"></div>
-		    <div class="pasek srodek">
-			<h1 class="tekst">
-			    Odpowiedz
-			</h1>
-		    </div>
-		    <div class="pasek prawy"></div>
-		</div>
-	    </a>
-	    <div style="clear: both;"></div>
-	</div>
     </div>
 {% endblock %}

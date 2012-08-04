@@ -1,148 +1,75 @@
-/* Forum tytuł */
+/* Forum tytul */
 
-.forum .gora {
+.forum {
     padding: 20px 0 0 0;
 }
 
-.forum .gora .pasek {
-    height: 50px;
-    width: 2px;
-    float: left;
+.naglowek1 .tytul .srodek {
+    width: 942px;
 }
 
-.forum .gora .lewy {
-    background: url('../obrazki/duzy-lewy.gif') no-repeat left top;
-}
-
-.forum .gora .prawy {
-    background: url('../obrazki/duzy-prawy.gif') no-repeat left top;
-}
-
-.forum .gora .srodek {
-    background: url('../obrazki/duzy-srodek.gif') repeat-x left bottom;
-}
-
-.forum .gora .tekst {
-    margin: 0;
-    font-weight: normal;
-    color: white;
-}
-
-.forum .gora .tytul h1.tekst {
+.naglowek1 .tytul h1.tekst {
     padding: 10px 0  0 15px;
     font-weight: bold;
     font-size: 2.0em;
 }
 
-.forum .gora .nowy_temat h1.tekst {
+.naglowek1 .nowy_temat .srodek {
+    width: 150px;
+}
+
+.naglowek1 .nowy_temat h1.tekst {
     padding: 10px 0;
     font-size: 2.0em;
     text-align: center;
 }
 
-.forum .gora .tytul .srodek {
-    width: 942px;
-}
 
+/* Forum naglowki */
 
-.forum .gora .nowy_temat .srodek {
-    width: 150px;
-}
-
-.forum .opis {
-    margin: 0;
-    padding: 5px 0px 0px 15px;
-    background: url('../obrazki/linia.gif') repeat-x left bottom;
-    text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    color: #000;
-}
-
-/* Forum nagłówki */
-
-.forum .naglowki {
+.naglowek2 {
     margin: 10px 0 0 0;
 }
 
-.forum .naglowki .pasek {
-    height: 30px;
-    width: 2px;
-    float: left;
-}
-
-.forum .naglowki .lewy {
-    background: url('../obrazki/maly-lewy.gif') no-repeat left top;
-}
-
-.forum .naglowki .prawy {
-    background: url('../obrazki/maly-prawy.gif') no-repeat left top;
-}
-
-.forum .naglowki .srodek {
-    background: url('../obrazki/maly-srodek.gif') repeat-x left bottom;
-}
-
-.forum .naglowki h2.tekst {
-    margin: 0;
-    text-align: center;
-    padding: 7.5px 0;
-}
-
-.forum .naglowki .temat .szerokosc {
-    width: 556px;
-}
-
-.forum .naglowki .odpowiedzi .szerokosc {
-    width: 96px;
-}
-
-.forum .naglowki .data_modyfikacji .szerokosc {
-    width: 136px;
-}
-
-.forum .naglowki .szerokosc {
+.naglowek2 .szerokosc {
     width: 146px;
 }
 
-/* Forum zawartość */
-
-.forum .zawartosc ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.naglowek2 .temat .szerokosc {
+    width: 556px;
 }
 
-.forum .zawartosc li {
-    padding: 5px;
-    background: url('../obrazki/linia.gif') repeat-x left bottom;
-    font-size: .8em;
+.naglowek2 .odpowiedzi .szerokosc {
+    width: 96px;
 }
 
-.forum .zawartosc .tabelka {
-    float: left;
+.naglowek2 .data_modyfikacji .szerokosc {
+    width: 136px;
 }
 
-.forum .zawartosc .tematy {
+/* Forum tematy */
+
+
+.tabela .tematy {
     width: 560px;
 }
 
-.forum .zawartosc .odpowiedzi {
+.tabela .odpowiedzi {
     width: 100px;
     text-align: center;
 }
 
-.forum .zawartosc .autorzy {
+.tabela .autorzy {
     width: 150px;
     text-align: center;
 }
 
-.forum .zawartosc .ostatnie_posty {
+.tabela .ostatnie_posty {
     width: 150px;
     text-align: center;
 }
 
-.forum .zawartosc .daty_modyfikacji {
+.tabela .daty_modyfikacji {
     width: 140px;
     text-align: center;
 } 

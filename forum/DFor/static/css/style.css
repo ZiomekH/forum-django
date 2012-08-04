@@ -6,7 +6,7 @@ Modyfikacja ZiomekH & Adi
 
 body {
 	margin: 20px 0;
-	background-image: url('../obrazki/bg.png');
+	background-image: url('../obrazki/tlo.png');
 }
 
 body, th, td {
@@ -63,7 +63,7 @@ header {
 	height: 35px;
 	margin: 0 auto;
 	background-color:transparent;
-	background-image:url('../obrazki/transbg.png');
+	background-image:url('../obrazki/przezroczyste_tlo.png');
 }
 
 
@@ -153,6 +153,89 @@ header {
     background: #FFFFFF;
     border: 5px solid #ffffff;
     border-top: none;
+}
+
+
+/* Naglowek1 Duzy */
+
+.naglowek1 .belka {
+    height: 50px;
+    width: 2px;
+    float: left;
+}
+
+.naglowek1 .lewy {
+    background: url('../obrazki/naglowek1-lewy.gif') no-repeat left top;
+}
+
+.naglowek1 .prawy {
+    background: url('../obrazki/naglowek1-prawy.gif') no-repeat left top;
+}
+
+.naglowek1 .srodek {
+    background: url('../obrazki/naglowek1-srodek.gif') repeat-x left bottom;
+}
+
+.naglowek1 .tekst {
+    margin: 0;
+    font-weight: normal;
+    color: white;
+}
+
+.naglowek1 .opis {
+    margin: 0;
+    padding: 5px 0px 0px 15px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000;
+}
+
+
+/* Naglowek2 Maly */
+
+.naglowek2 .belka {
+    height: 30px;
+    width: 2px;
+    float: left;
+}
+
+.naglowek2 .lewy {
+    background: url('../obrazki/naglowek2-lewy.gif') no-repeat left top;
+}
+
+.naglowek2 .prawy {
+    background: url('../obrazki/naglowek2-prawy.gif') no-repeat left top;
+}
+
+.naglowek2 .srodek {
+    background: url('../obrazki/naglowek2-srodek.gif') repeat-x left bottom;
+}
+
+.naglowek2 h2.tekst {
+    margin: 0;
+    text-align: center;
+    padding: 7.5px 0;
+}
+
+
+/* Tabelka liniowa */
+
+.tabela ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tabela li {
+    padding: 5px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    font-size: .8em;
+}
+
+.tabela .ulozenie {
+    float: left;
 }
 
 
