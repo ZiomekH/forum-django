@@ -19,13 +19,13 @@
     <script type="text/javascript" src="/static/js/tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript">
 	$(document).ready(function(){
+	    $('#id_tytul').focus();
 	    $('#form_submit').hide();
- 	    $('#id_tytul').css('width','796px');
- 	    $('#id_dd').css({'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'});
-	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij(this);\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}</h2></div><div class=\"belka prawy\"></div></a>");
+  	    $('#id_podpis').css('width','796px');
+	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij(this);return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}</h2></div><div class=\"belka prawy\"></div></a>");
 	});
 	function slij(sender) {
- 	    $('#id_{{ formPost.safe.html_name }}').val('on');
+ 	    $('#id_safe').val('on');
 	    $(sender).parents('form').submit();
 	}
 	tinyMCE.init({
@@ -38,9 +38,9 @@
 {% block zawartosc %}
     <div class="formularz_post">
 	<div class="naglowek2">
-	    <div class="tytul">
+	    <div class="podpis">
 		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc" id="id_tytul">
+		<div class="belka srodek szerokosc" id="id_podpis">
 		    <h2 class="tekst">
 			{% if zadanie == 'odpowiedz' %}
 			    Odpowiedź w {{ temat.tytul }}
@@ -61,7 +61,15 @@
 	<div class="zawartosc">
 	    {% csrf_token %}
 	    {% if formTemat %}
-		{{ formTemat.as_table }}
+		<div class="formularz">
+		    <div class="tabelka opis">
+			{{ formTemat.tytul.label_tag }}
+		    </div>
+		    <div class="tabelka">
+			{{ formTemat.tytul }}
+		    </div>
+		    <div style="clear: both;"></div>
+		</div>
 	    {% endif %}    
 	    <div align='center'>
 	    {{ formPost.tekst }}

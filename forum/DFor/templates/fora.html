@@ -100,7 +100,7 @@
 	    <div class="ulozenie odpowiedzi">
 		<ul>
 		{% for temat in forum.tematy.all %}
-		    <li>{{ temat.posty.count }}</li>
+		    <li>{{ temat.iloscOdpowiedzi }}</li>
 		{% endfor %} 
 		</ul>
 	    </div>

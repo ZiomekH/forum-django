@@ -6,8 +6,9 @@
 
 {% block zawartosc %}
   <p>
-    <form action="." method="post">{% csrf_token %}
-    {{ form.as_p }}
+    <form action='.' method='post' enctype='multipart/form-data'>{% csrf_token %}
+    {{ formGlowne.as_p }}
+    {{ formDodatkowe.as_p }}
     <input type="submit" value="Zmień" />
     </form>
   </p> 

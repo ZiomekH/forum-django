@@ -8,6 +8,7 @@ from django.conf import settings
 from models import *
 from forms import *
 
+
 def sprZalogowania(request):
     return request.user.is_authenticated();
 
@@ -17,6 +18,10 @@ def sprUzytkownika(request, czyZalogowany):
 	return Uzytkownik.objects.get(id=request.user.id)
     return ''
     
+def zapiszAvatar(plik, nazwa):  
+    with open(nazwa, 'wb+') as destination:
+        for chunk in plik.chunks():
+            destination.write(chunk)
     
 def widokFora(request):
     czyZalogowany = sprZalogowania(request)
@@ -58,14 +63,27 @@ def widokProfil(request):
     dane = {}
     dane.update(csrf(request))
     if request.method == "POST":
-	form = formularzUzytkownik(request.POST, instance=uzytkownik)
-	if form.is_valid():
-	    form.save()
-	return HttpResponseRedirect('/dfor/profil')
+	formGlowne = formularzProfilGlowne(request.POST, instance=uzytkownik.uzytkownik)
+	formDodatkowe = formularzProfilDodatkowe(request.POST, instance=uzytkownik)
+	if formGlowne.is_valid() and formDodatkowe.is_valid():
+	    formGlowne.save()
+	    if(request.FILES):
+		import os.path
+		plik = request.FILES['avatar']
+		nazwa = 'avatars/' + str(uzytkownik.id) + os.path.splitext(plik.name)[1].lower()
+		zapiszAvatar(plik, settings.MEDIA_ROOT + nazwa)
+		profil = formDodatkowe.save(commit=False)
+		profil.avatar = nazwa
+		profil.save()
+		formDodatkowe.save_m2m()
+	    formDodatkowe.save()
+	    return HttpResponseRedirect('/dfor/uzytkownik/' + str(uzytkownik.id))
     else:
-	form = formularzUzytkownik(instance=uzytkownik)
+	formGlowne = formularzProfilGlowne(instance=uzytkownik.uzytkownik)
+	formDodatkowe = formularzProfilDodatkowe(instance=uzytkownik)
 	
-    dane['form'] = form
+    dane['formGlowne'] = formGlowne
+    dane['formDodatkowe'] = formDodatkowe
     dane['media'] = settings.MEDIA_URL
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
@@ -153,7 +171,7 @@ def widokEdytujPost(request, id):
     if request.method == "POST":
 	formPost = formularzPost(request.POST, instance=Post.objects.get(id=id))
 	formPost.save()
-	return HttpResponseRedirect('/dfor/')
+	return HttpResponseRedirect('/dfor/temat/' + str(Temat.objects.filter(posty=post)[0].id))
     else:
 	formPost = formularzPost(instance=Post.objects.get(id=id))
 	

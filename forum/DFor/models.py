@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -7,11 +9,11 @@ PLEC = (('K', 'Kobieta'),('M', 'Mezczyzna'))
 
 class Uzytkownik(models.Model):
   uzytkownik = models.OneToOneField(User)
-  data_urodzenia = models.DateField(blank=True, null=True)
-  plec = models.CharField(blank=True, max_length=1, choices=PLEC)
-  miejscowosc = models.CharField(blank=True, max_length=100)
-  avatar = models.ImageField(blank=True, upload_to='avatars')
-  podpis = models.TextField(blank=True)
+  data_urodzenia = models.DateField(blank=True, null=True, verbose_name='Data urodzenia')
+  plec = models.CharField(blank=True, max_length=1, choices=PLEC, verbose_name='Płeć')
+  miejscowosc = models.CharField(blank=True, max_length=100, verbose_name='Miejscowość')
+  avatar = models.ImageField(blank=True, upload_to='avatars', verbose_name='Avatar')
+  podpis = models.TextField(blank=True, verbose_name='Podpis')
   
   def __unicode__(self):
     return self.uzytkownik.username
@@ -42,11 +44,14 @@ class Post(models.Model):
     return ((self.data_modyfikacji - self.data_utworzenia).seconds) != 0
   
 class Temat(models.Model):
-  tytul = models.CharField(max_length=70)
+  tytul = models.CharField(max_length=70, verbose_name='Tytuł')
   posty = models.ManyToManyField(Post)
   
   def __unicode__(self):
     return self.tytul
+    
+  def iloscOdpowiedzi(self):
+      return self.posty.count() - 1
   
   def autorTematu(self):
       return self.posty.all()[0].autor
