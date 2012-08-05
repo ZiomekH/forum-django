@@ -18,10 +18,12 @@ def sprUzytkownika(request, czyZalogowany):
 	return Uzytkownik.objects.get(id=request.user.id)
     return ''
     
+    
 def zapiszAvatar(plik, nazwa):  
     with open(nazwa, 'wb+') as destination:
         for chunk in plik.chunks():
             destination.write(chunk)
+    
     
 def widokFora(request):
     czyZalogowany = sprZalogowania(request)
@@ -50,10 +52,12 @@ def widokUzytkownik(request, id):
       return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
 
+    
 def widokPostyUzytkownika(request, id):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)
     return render_to_response("posty.html", {'posty': Post.objects.filter(autor=id).order_by('-data_modyfikacji'), 'media': settings.MEDIA_URL, 'czyZalogowany': czyZalogowany, 'uzytkownik': uzytkownik})
+    
     
 def widokProfil(request):
     czyZalogowany = sprZalogowania(request)
@@ -84,13 +88,51 @@ def widokProfil(request):
 	
     dane['formGlowne'] = formGlowne
     dane['formDodatkowe'] = formDodatkowe
-    dane['media'] = settings.MEDIA_URL
     dane['czyZalogowany'] = czyZalogowany
     dane['uzytkownik'] = uzytkownik
     
     return render_to_response('profil.html', dane)
 
+
+def widokRejestruj(request):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany):
+      return HttpResponseRedirect('/dfor/')
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formGlowne = formularzRejestrujGlowne(request.POST)	
+	formDodatkowe = formularzProfilDodatkowe(request.POST)
+	if formGlowne.is_valid() and formDodatkowe.is_valid(): 
+	    glowne = formGlowne.save()
+	    glowne.set_password(glowne.password)
+	    glowne.save()
+	    formDodatkowe = formularzProfilDodatkowe(request.POST, instance=Uzytkownik.objects.get(id=glowne.id))
+	    if(request.FILES):
+		import os.path
+		plik = request.FILES['avatar']
+		nazwa = 'avatars/' + str(glowne.id) + os.path.splitext(plik.name)[1].lower()
+		zapiszAvatar(plik, settings.MEDIA_ROOT + nazwa)
+		profil = formDodatkowe.save(commit=False)
+		profil.avatar = nazwa
+		profil.save()
+		formDodatkowe.save_m2m()
+	    formDodatkowe.save()
+	    
+	    return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    else:
+	formGlowne = formularzRejestrujGlowne()
+	formDodatkowe = formularzProfilDodatkowe()
+	
+    dane['formGlowne'] = formGlowne
+    dane['formDodatkowe'] = formDodatkowe
+    dane['czyZalogowany'] = czyZalogowany
+    #dane['uzytkownik'] = uzytkownik
     
+    return render_to_response('rejestruj.html', dane)
+
+
 def widokOdpowiedz(request, id):
     czyZalogowany = sprZalogowania(request)
     uzytkownik = sprUzytkownika(request, czyZalogowany)

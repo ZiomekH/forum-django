@@ -239,6 +239,24 @@ header {
 }
 
 
+/* Formularz */
+
+.formularz {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formularz .tabelka {
+    float: left;
+    margin-bottom: 5px;
+}
+
+.formularz .opis {
+    margin-top: 3px;
+    text-align: left;
+}
+
+
 /* Stopka */
 
 footer {

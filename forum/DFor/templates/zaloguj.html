@@ -47,8 +47,7 @@
 		</div>
 		<div class="belka prawy"></div>
 	    </div>
-	    <form action="." method="post" id="id_form">
-	    <form method="post" action="{% url django.contrib.auth.views.login %}">
+	    
 	    <div class="guzik" id="id_guzik"></div>
 	    <div style="clear: both;"></div>
 	</div>
@@ -57,6 +56,7 @@
 	    <p>Twoj login lub hasło są niepoprawne.</p>
 	{% endif %}
 	<div class="formularz">
+	    <form method="post" action="{% url django.contrib.auth.views.login %}" id="id_form">
 	    {% csrf_token %}
 	    <div class="tabelka opis">
 		{{ form.username.label_tag }}

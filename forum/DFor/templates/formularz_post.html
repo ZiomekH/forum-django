@@ -22,11 +22,11 @@
 	    $('#id_tytul').focus();
 	    $('#form_submit').hide();
   	    $('#id_podpis').css('width','796px');
-	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij(this);return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}</h2></div><div class=\"belka prawy\"></div></a>");
+	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">{% if zadanie == 'odpowiedz' or zadanie == 'nowy_temat' %}Dodaj{% elif zadanie == 'edytuj' %}Edytuj{% endif %}</h2></div><div class=\"belka prawy\"></div></a>");
 	});
-	function slij(sender) {
+	function slij() {
  	    $('#id_safe').val('on');
-	    $(sender).parents('form').submit();
+	    $('#id_form').submit();
 	}
 	tinyMCE.init({
 		mode : "textareas",
@@ -53,12 +53,13 @@
 		</div>
 		<div class="belka prawy"></div>
 	    </div>
-	    <form action="." method="post">
+	    
 	    <div class="guzik" id="id_guzik"></div>
 	    <div style="clear: both;"></div>
 	</div>
   
 	<div class="zawartosc">
+	    <form action="." method="post" id="id_form">
 	    {% csrf_token %}
 	    {% if formTemat %}
 		<div class="formularz">

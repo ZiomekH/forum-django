@@ -1,16 +1,16 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    Edycja profilu użytkownika {{ uzytkownik }}
+    Rejestracja użytkownika
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="/static/css/profil.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/rejestruj.css" />
 {% endblock %}
 
 {% block head %}
     <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
 	$(document).ready(function(){
 	    $('#id_email').focus();
 	    $('#form_submit').hide();
@@ -25,17 +25,17 @@
 		mode : "textareas",
 		theme : "simple"
 	});
-    </script>
+    </script>-->
 {% endblock %}
 
 {% block zawartosc %}
-    <div class="profil">
+    <div class="rejestruj">
 	<div class="naglowek2">
 	    <div class="podpis">
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc" id="id_podpis">
 		    <h2 class="tekst">
-			Edycja profilu użytkownika {{ uzytkownik }}
+			Rejestracja użytkownika
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
@@ -48,6 +48,22 @@
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
 	    {% csrf_token %}
 	    <div class="formularz">
+		<div class="tabelka opis">
+		    {{ formGlowne.username.label_tag }}
+		</div>
+		<div class="tabelka">
+		    {{ formGlowne.username }}
+		</div>
+		<div style="clear: both;"></div>
+		
+		<div class="tabelka opis">
+		    {{ formGlowne.password.label_tag }}
+		</div>
+		<div class="tabelka">
+		    {{ formGlowne.password }}
+		</div>
+		<div style="clear: both;"></div>
+		
 		<div class="tabelka opis">
 		    {{ formGlowne.email.label_tag }}
 		</div>
@@ -112,7 +128,7 @@
 		</div>
 		<div style="clear: both;"></div>
 	    </div>
-	    <input type="submit" value="Zmień" id="form_submit" />
+	    <input type="submit" value="Dodaj" id="form_submit" />
 	    </form>
 	</div>
     </div>

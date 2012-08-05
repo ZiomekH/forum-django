@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^uzytkownik/(?P<id>\d+)/$', widokUzytkownik),
     url(r'^uzytkownik/posty/(?P<id>\d+)/$', widokPostyUzytkownika),
     url(r'^profil/$', widokProfil),
+    url(r'^zarejestruj/$', widokRejestruj),
     
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
 )
