@@ -15,7 +15,7 @@
 	    $('#id_email').focus();
 	    $('#form_submit').hide();
 	    $('#id_zmianahasla').hide();
-  	    $('#id_podpis').css('width','346px');
+  	    $('#id_podpis').css('width','396px');
   	    $('#id_guzik1').html("<a href=\"/dfor/profil/zmianahasla\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Zmiana hasła</h2></div><div class=\"belka prawy\"></div></a>");
 	    $('#id_guzik2').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Edytuj</h2></div><div class=\"belka prawy\"></div></a>");
 	});
@@ -37,7 +37,7 @@
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc" id="id_podpis">
 		    <h2 class="tekst">
-			Edycja profilu użytkownika {{ uzytkownik }}
+			Edycja profilu {{ uzytkownik }}
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
@@ -51,69 +51,9 @@
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
 	    {% csrf_token %}
 	    <div class="formularz">
-		<div class="tabelka opis">
-		    {{ formGlowne.email.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.email }}
-		</div>
-		<div style="clear: both;"></div>
+		{% include "formularz.html" with form=formGlowne %}
+		{% include "formularz.html" with form=formDodatkowe %}
 		
-		<div class="tabelka opis">
-		    {{ formGlowne.first_name.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.first_name }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formGlowne.last_name.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.last_name }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.plec.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.plec }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.miejscowosc.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.miejscowosc }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.data_urodzenia.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.data_urodzenia }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.avatar.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.avatar }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.podpis.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.podpis }}
-		</div>
-		<div style="clear: both;"></div>
 		<input type="submit" value="Edytuj" id="form_submit" />
 		
 		<p id="id_zmianahasla">

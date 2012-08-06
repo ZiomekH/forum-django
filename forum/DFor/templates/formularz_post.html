@@ -63,15 +63,13 @@
 	    {% csrf_token %}
 	    {% if formTemat %}
 		<div class="formularz">
-		    <div class="tabelka opis">
-			{{ formTemat.tytul.label_tag }}
-		    </div>
-		    <div class="tabelka">
-			{{ formTemat.tytul }}
-		    </div>
-		    <div style="clear: both;"></div>
+		    {% include "formularz.html" with form=formTemat %}
 		</div>
-	    {% endif %}    
+	    {% endif %}
+	    <div>
+		{{ formPost.non_field_errors }}
+		{{ formPost.tekst.errors }}
+	    </div>
 	    <div align='center'>
 	    {{ formPost.tekst }}
 	    </div>

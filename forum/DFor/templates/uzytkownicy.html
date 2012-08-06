@@ -10,52 +10,19 @@
 
 {% block zawartosc %}
     <div class="uzytkownicy">
+
 	<div class="naglowek2">
-	    <div class="login">
+	{% for jeden in 12345|make_list %}
+	    <div class="{% cycle 'login' 'email' 'plec' 'skad' 'posty' %}">
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
-			Login
+			{% cycle 'Login' 'E-mail' 'Płeć' 'Skąd' 'Posty' %}
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
 	    </div>
-	    <div class="email">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			E-Mail
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="plec">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Płeć
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="skad">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Skąd
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="posty">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Posty
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
+	{% endfor%}
 	    <div style="clear: both;"></div>
 	</div>
 	

@@ -41,51 +41,17 @@
 	</div>
 
 	<div class="naglowek2">
-	    <div class="temat">
+	{% for jeden in 12345|make_list %}
+	    <div class="{% cycle 'temat' 'odpowiedzi' 'autor' 'ostatni_post' 'data_modyfikacji' %}">
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc">
 		    <h2 class="tekst">
-			Temat
+			{% cycle 'Temat' 'Odpowiedzi' 'Autor' 'Ostatni post' 'Data modyfikacji' %}
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
 	    </div>
-	    <div class="odpowiedzi">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Odpowiedzi
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="autor">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Autor
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="ostatni_post">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Ostatni post
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
-	    <div class="data_modyfikacji">
-		<div class="belka lewy"></div>
-		<div class="belka srodek szerokosc">
-		    <h2 class="tekst">
-			Data modyfikacji
-		    </h2>
-		</div>
-		<div class="belka prawy"></div>
-	    </div>
+	{% endfor%}
 	    <div style="clear: both;"></div>
 	</div>
 	

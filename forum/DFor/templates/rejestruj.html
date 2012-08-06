@@ -10,12 +10,12 @@
 
 {% block head %}
     <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <!--<script type="text/javascript">
+    <script type="text/javascript">
 	$(document).ready(function(){
 	    $('#id_email').focus();
 	    $('#form_submit').hide();
-  	    $('#id_podpis').css('width','796px');
-	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Edytuj</h2></div><div class=\"belka prawy\"></div></a>");
+  	    $('#id_podpis').css('width','306px');
+	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">OK</h2></div><div class=\"belka prawy\"></div></a>");
 	});
 	function slij() {
  	    $('#id_safe').val('on');
@@ -25,7 +25,7 @@
 		mode : "textareas",
 		theme : "simple"
 	});
-    </script>-->
+    </script>
 {% endblock %}
 
 {% block zawartosc %}
@@ -43,111 +43,15 @@
 	    <div class="guzik" id="id_guzik"></div>
 	    <div style="clear: both;"></div>
 	</div>
-
-	
-	
 	<div class="zawartosc">
-	    {% if formGlowne.errors %}
-		<p>{{ formGlowne.errors }}</p>
-	    {% endif %}
-	    {% if formHaslo.errors %}
-		<p>{{ formHaslo.errors }}</p>
-	    {% endif %}
-	    {% if formDodatkowe.errors %}
-		<p>{{ formDodatkowe.errors }}</p>
-	    {% endif %}
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
-	    {% csrf_token %}
-	    <div class="formularz">
-		<div class="tabelka opis">
-		    {{ formGlowne.username.label_tag }}
+		{% csrf_token %}
+		<div class="formularz">
+		    {% include "formularz.html" with form=formGlowne zaznacz='True' %}
+		    {% include "formularz.html" with form=formHaslo zaznacz='True' %}
+		    {% include "formularz.html" with form=formDodatkowe zaznacz='True' %}
+		    <input type="submit" value="OK" id="form_submit" />
 		</div>
-		<div class="tabelka">
-		    {{ formGlowne.username }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formHaslo.haslo1.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formHaslo.haslo1 }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formHaslo.haslo2.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formHaslo.haslo2 }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formGlowne.email.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.email }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formGlowne.first_name.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.first_name }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formGlowne.last_name.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formGlowne.last_name }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.plec.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.plec }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.miejscowosc.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.miejscowosc }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.data_urodzenia.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.data_urodzenia }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.avatar.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.avatar }}
-		</div>
-		<div style="clear: both;"></div>
-		
-		<div class="tabelka opis">
-		    {{ formDodatkowe.podpis.label_tag }}
-		</div>
-		<div class="tabelka">
-		    {{ formDodatkowe.podpis }}
-		</div>
-		<div style="clear: both;"></div>
-	    </div>
-	    <input type="submit" value="Dodaj" id="form_submit" />
 	    </form>
 	</div>
     </div>

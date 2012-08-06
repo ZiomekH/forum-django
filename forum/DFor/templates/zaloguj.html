@@ -57,23 +57,11 @@
 	{% endif %}
 	<div class="formularz">
 	    <form method="post" action="{% url django.contrib.auth.views.login %}" id="id_form">
-	    {% csrf_token %}
-	    <div class="tabelka opis">
-		{{ form.username.label_tag }}
-	    </div>
-	    <div class="tabelka">
-		{{ form.username }}
-	    </div>
-	    <div style="clear: both;"></div>
-	    <div class="tabelka opis">
-		{{ form.password.label_tag }}
-	    </div>
-	    <div class="tabelka">
-		{{ form.password }}
-	    </div>
-	    <div style="clear: both;"></div>
-	    <input type="submit" value="zaloguj" id="form_submit" />
-	    <input type="hidden" name="next" value="{{ next }}" />
+		{% csrf_token %}
+		{% include "formularz.html" %}
+
+		<input type="submit" value="zaloguj" id="form_submit" />
+		<input type="hidden" name="next" value="{{ next }}" />
 	    </form>
 	</div>
     </div>

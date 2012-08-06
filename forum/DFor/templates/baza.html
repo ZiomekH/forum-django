@@ -17,7 +17,7 @@
         <ul>
 	    <li class="current_page_item"><a href="/dfor">Główna</a></li>
             <li><a href="/dfor/szukaj">Szukaj</a></li>
-            {% if czyZalogowany %}
+            {% if uzytkownik.uzytkownik.is_authenticated %}
 		<li><a href="/dfor/uzytkownicy">Użytkownicy</a></li>
 		<li><a href="/dfor/profil">Profil</a></li>
 		{% if uzytkownik.uzytkownik.is_staff %}

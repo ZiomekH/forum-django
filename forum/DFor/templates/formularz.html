@@ -1,0 +1,19 @@
+ <div>
+    {{ form.non_field_errors }}
+</div>
+{% for pole in form %}
+    {% if pole.is_hidden %}
+	{{ pole }}
+    {% else %}
+	<div>
+	    {{ pole.errors }}
+	</div>
+	<div class="tabelka opis">
+	    {% if pole.field.required and zaznacz %}<span class="special_class">*</span>{% endif %}{{ pole.label }}
+	</div>
+	<div class="tabelka">
+	    {{ pole }}
+	</div>
+	<div style="clear: both;"></div>
+    {% endif %}
+{% endfor %}

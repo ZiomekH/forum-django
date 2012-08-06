@@ -1,10 +1,10 @@
 /* Formularz postow naglowek */
 
-.profil {
+.profil{
     padding: 20px 0 0 0;
     margin-left: auto;
     margin-right: auto;
-    width: 550px;
+    width: 600px;
     text-align: center;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .naglowek2 .szerokosc {
-    width: 546px;
+    width: 596px;
 }
 
 .naglowek2 .guzik .szerokosc {
@@ -27,5 +27,11 @@
 /* Zawartosc formularzy */
 
 .zawartosc {
-    padding: 10px 0 0 10px;
+    padding: 10px 0 0 0;
+}
+
+.zawartosc textarea {
+    width: 280px; 
+    height: 45px;
+    resize: none;
 }

@@ -58,40 +58,13 @@
 	    <div style="clear: both;"></div>
 	</div>
 	
-   	<!--{% if form.errors %}
-	    <p>{{ form.errors }}</p>
-	{% endif %}-->
 	<div class="formularz">
 	    <form method="post" action="." id="id_form">
 	    {% csrf_token %}
 	    
-	    {{ form.as_p }}
+	    {% include "formularz.html" %}
 	    
-	    <!--<div class="tabelka opis">
-		{{ form.stareHaslo.label_tag }}
-	    </div>
-	    <div class="tabelka">
-		{{ form.stareHaslo }}
-	    </div>
-	    <div style="clear: both;"></div>
-	    
-	    <div class="tabelka opis">
-		{{ form.noweHaslo1.label_tag }}
-	    </div>
-	    <div class="tabelka">
-		{{ form.noweHaslo1 }}
-	    </div>
-	    <div style="clear: both;"></div>
-	    
-	    <div class="tabelka opis">
-		{{ form.noweHaslo2.label_tag }}
-	    </div>
-	    <div class="tabelka">
-		{{ form.noweHaslo2 }}
-	    </div>
-	    <div style="clear: both;"></div>
-	    
-	    {{ form.idUzytkownika }}-->
+
 	    
 	    <input type="submit" value="Zmień" id="form_submit" />
 	    </form>
