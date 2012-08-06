@@ -44,7 +44,18 @@
 	    <div style="clear: both;"></div>
 	</div>
 
+	
+	
 	<div class="zawartosc">
+	    {% if formGlowne.errors %}
+		<p>{{ formGlowne.errors }}</p>
+	    {% endif %}
+	    {% if formHaslo.errors %}
+		<p>{{ formHaslo.errors }}</p>
+	    {% endif %}
+	    {% if formDodatkowe.errors %}
+		<p>{{ formDodatkowe.errors }}</p>
+	    {% endif %}
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
 	    {% csrf_token %}
 	    <div class="formularz">
@@ -57,10 +68,18 @@
 		<div style="clear: both;"></div>
 		
 		<div class="tabelka opis">
-		    {{ formGlowne.password.label_tag }}
+		    {{ formHaslo.haslo1.label_tag }}
 		</div>
 		<div class="tabelka">
-		    {{ formGlowne.password }}
+		    {{ formHaslo.haslo1 }}
+		</div>
+		<div style="clear: both;"></div>
+		
+		<div class="tabelka opis">
+		    {{ formHaslo.haslo2.label_tag }}
+		</div>
+		<div class="tabelka">
+		    {{ formHaslo.haslo2 }}
 		</div>
 		<div style="clear: both;"></div>
 		

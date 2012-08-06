@@ -14,8 +14,10 @@
 	$(document).ready(function(){
 	    $('#id_email').focus();
 	    $('#form_submit').hide();
-  	    $('#id_podpis').css('width','796px');
-	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Edytuj</h2></div><div class=\"belka prawy\"></div></a>");
+	    $('#id_zmianahasla').hide();
+  	    $('#id_podpis').css('width','346px');
+  	    $('#id_guzik1').html("<a href=\"/dfor/profil/zmianahasla\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Zmiana hasła</h2></div><div class=\"belka prawy\"></div></a>");
+	    $('#id_guzik2').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Edytuj</h2></div><div class=\"belka prawy\"></div></a>");
 	});
 	function slij() {
  	    $('#id_safe').val('on');
@@ -40,7 +42,8 @@
 		</div>
 		<div class="belka prawy"></div>
 	    </div>
-	    <div class="guzik" id="id_guzik"></div>
+	    <div class="guzik" id="id_guzik1"></div>
+	    <div class="guzik" id="id_guzik2"></div>
 	    <div style="clear: both;"></div>
 	</div>
 
@@ -111,8 +114,13 @@
 		    {{ formDodatkowe.podpis }}
 		</div>
 		<div style="clear: both;"></div>
+		<input type="submit" value="Edytuj" id="form_submit" />
+		
+		<p id="id_zmianahasla">
+		    <a href="/dfor/profil/zmianahasla">Zmiana hasła<a>
+		</p>
 	    </div>
-	    <input type="submit" value="Zmień" id="form_submit" />
+	    
 	    </form>
 	</div>
     </div>

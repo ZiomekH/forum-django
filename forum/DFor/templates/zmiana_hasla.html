@@ -1,0 +1,100 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Zmiana hasła
+{% endblock %}
+
+{% block style %}
+     <link rel="stylesheet" type="text/css" href="/static/css/zmiana_hasla.css" />
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+	    $('#id_stareHaslo').focus();
+	    $('#form_submit').hide();
+  	    $('#id_tytul').css('width','176px');
+ 	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Zmień</h2></div><div class=\"belka prawy\"></div></a>");
+	    $('#id_stareHaslo').keypress(function(e) {
+		if (e.keyCode == 13) {
+		    slij();
+		    return e.preventDefault();
+		}
+	    });
+	    $('#id_noweHaslo1').keypress(function(e) {
+		if (e.keyCode == 13) {
+		    slij();
+		    return e.preventDefault();
+		}
+	    });
+	    $('#id_noweHaslo2').keypress(function(e) {
+		if (e.keyCode == 13) {
+		    slij();
+		    return e.preventDefault();
+		}
+	    });
+	});
+	function slij() {
+	    $('#id_form').submit();
+	}
+    </script>
+{% endblock %}
+
+{% block zawartosc %}
+   <div class="zmiana_hasla">
+	<div class="naglowek2">
+	    <div class="tytul">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc" id="id_tytul">
+		    <h2 class="tekst">
+			Zmiana hasła
+		    </h2>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    
+	    <div class="guzik" id="id_guzik"></div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+   	<!--{% if form.errors %}
+	    <p>{{ form.errors }}</p>
+	{% endif %}-->
+	<div class="formularz">
+	    <form method="post" action="." id="id_form">
+	    {% csrf_token %}
+	    
+	    {{ form.as_p }}
+	    
+	    <!--<div class="tabelka opis">
+		{{ form.stareHaslo.label_tag }}
+	    </div>
+	    <div class="tabelka">
+		{{ form.stareHaslo }}
+	    </div>
+	    <div style="clear: both;"></div>
+	    
+	    <div class="tabelka opis">
+		{{ form.noweHaslo1.label_tag }}
+	    </div>
+	    <div class="tabelka">
+		{{ form.noweHaslo1 }}
+	    </div>
+	    <div style="clear: both;"></div>
+	    
+	    <div class="tabelka opis">
+		{{ form.noweHaslo2.label_tag }}
+	    </div>
+	    <div class="tabelka">
+		{{ form.noweHaslo2 }}
+	    </div>
+	    <div style="clear: both;"></div>
+	    
+	    {{ form.idUzytkownika }}-->
+	    
+	    <input type="submit" value="Zmień" id="form_submit" />
+	    </form>
+	</div>
+    </div>
+{% endblock %}

@@ -104,9 +104,11 @@ def widokRejestruj(request):
     if request.method == "POST":
 	formGlowne = formularzRejestrujGlowne(request.POST)	
 	formDodatkowe = formularzProfilDodatkowe(request.POST)
-	if formGlowne.is_valid() and formDodatkowe.is_valid(): 
+	formHaslo = formularzRejestrujlHaslo(request.POST)
+	
+	if formGlowne.is_valid() and formDodatkowe.is_valid() and formHaslo.is_valid(): 
 	    glowne = formGlowne.save()
-	    glowne.set_password(glowne.password)
+	    glowne.set_password(formHaslo.cleaned_data['haslo1'])
 	    glowne.save()
 	    formDodatkowe = formularzProfilDodatkowe(request.POST, instance=Uzytkownik.objects.get(id=glowne.id))
 	    if(request.FILES):
@@ -124,14 +126,38 @@ def widokRejestruj(request):
     else:
 	formGlowne = formularzRejestrujGlowne()
 	formDodatkowe = formularzProfilDodatkowe()
+	formHaslo = formularzRejestrujlHaslo()
 	
     dane['formGlowne'] = formGlowne
     dane['formDodatkowe'] = formDodatkowe
+    dane['formHaslo'] = formHaslo
     dane['czyZalogowany'] = czyZalogowany
-    #dane['uzytkownik'] = uzytkownik
     
     return render_to_response('rejestruj.html', dane)
 
+    
+def widokZmianaHasla(request):
+    czyZalogowany = sprZalogowania(request)
+    uzytkownik = sprUzytkownika(request, czyZalogowany)
+    if (czyZalogowany == False):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	form = formularzProfilHaslo(request.POST)
+	if form.is_valid():
+	    uzytkownik.uzytkownik.set_password(form.cleaned_data['noweHaslo1'])
+	    uzytkownik.uzytkownik.save()
+	    return HttpResponseRedirect('/dfor/')
+    else:
+	form = formularzProfilHaslo(initial={'idUzytkownika': uzytkownik.id})
+	
+    dane['form'] = form
+    dane['czyZalogowany'] = czyZalogowany
+    dane['uzytkownik'] = uzytkownik
+    
+    return render_to_response('zmiana_hasla.html', dane)
+    
 
 def widokOdpowiedz(request, id):
     czyZalogowany = sprZalogowania(request)
@@ -172,18 +198,21 @@ def widokNowyTemat(request, id):
     if request.method == "POST":
 	formPost = formularzPost(request.POST)
 	formTemat = formularzTemat(request.POST)
-	post = formPost.save(commit=False)
-	post.autor = uzytkownik
-	post.save()
-	temat = formTemat.save(commit=False)
-	temat.save()
-	temat.posty.add(post)
-	forum = Forum.objects.get(id=id)
-	forum.tematy.add(temat)
-	forum.save()
-	formPost.save_m2m()
-	formTemat.save_m2m()
-	return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
+	
+	if formPost.is_valid() and formTemat.is_valid():
+	    post = formPost.save(commit=False)
+	    post.autor = uzytkownik
+	    post.save()
+	    temat = formTemat.save(commit=False)
+	    temat.save()
+	    temat.posty.add(post)
+	    forum = Forum.objects.get(id=id)
+	    forum.tematy.add(temat)
+	    forum.save()
+	    formPost.save_m2m()
+	    formTemat.save_m2m()
+	    
+	    return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
     else:
 	formPost = formularzPost()
 	formTemat = formularzTemat()

@@ -20,6 +20,9 @@
             {% if czyZalogowany %}
 		<li><a href="/dfor/uzytkownicy">Użytkownicy</a></li>
 		<li><a href="/dfor/profil">Profil</a></li>
+		{% if uzytkownik.uzytkownik.is_staff %}
+		    <li><a href="/admin">Admininistracja</a></li>
+		{% endif %}
 		<li><a href="/dfor/wyloguj">Wyloguj ({{ uzytkownik }})</a></li>
 	    {% else %}
 		<li><a href="/dfor/zaloguj/?next=/dfor">Zaloguj</a></li>
