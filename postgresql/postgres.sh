@@ -8,6 +8,7 @@ dropuser -U postgres django
 createuser -U postgres -D -R -S -w django
 createdb -U postgres -E utf8 -O django dfor -T template0
 
-./forum/manage.py syncdb
+../forum/manage.py syncdb
 
+psql -U django -f slownik.sql dfor
 psql -U django -f baza.sql dfor

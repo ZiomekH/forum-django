@@ -1,0 +1,14 @@
+SELECT tekst from "DFor_post" where tekst_tsv @@ plainto_tsquery('ala') ORDER BY rank;
+
+Post.objects.extra(where=["tekst_tsv @@ plainto_tsquery('ala')"])
+
+plainto_tsquery
+
+from DFor.models import *
+
+SELECT tekst 
+FROM "DFor_post", plainto_tsquery('public.polish', 'ala') query
+WHERE query @@ tekst_tsv
+ORDER BY ts_rank_cd(tekst_tsv, query) desc;
+
+ts_rank_cd(textsearch, 'phrase') AS score

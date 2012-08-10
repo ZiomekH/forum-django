@@ -1,0 +1,37 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Szukaj
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/szukaj.css" />
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="szukaj">
+	<div class="naglowek2">
+	    <div class="podpis">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc" id="id_podpis">
+		    <h2 class="tekst">
+			Szukaj
+		    </h2>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    
+	    <div class="guzik" id="id_guzik"></div>
+	    <div style="clear: both;"></div>
+	</div>
+  
+	<div class="zawartosc">
+	    <form action="." method="post" id="id_form">
+	    {% csrf_token %}
+		{% include "formularz.html" %}
+		<input type="submit" value="Szukaj" id="form_submit" />
+	    </form>
+	</div>
+    </div>
+{% endblock %}
+

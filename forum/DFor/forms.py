@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
-from django.forms import ModelForm, Textarea, HiddenInput, TextInput, PasswordInput, ClearableFileInput
+from django.forms import ModelForm, Textarea, HiddenInput, TextInput, PasswordInput, ClearableFileInput, RadioSelect
 from django.core.files.images import get_image_dimensions
 
 from models import *
@@ -102,3 +102,8 @@ class formularzTemat(ModelForm):
 	widgets = {
 	    'tytul': TextInput(attrs={'size': 70, }),
 	}
+	
+class formularzSzukaj(forms.Form):
+    slowa = forms.CharField(label="Słowa kluczowe", required=False)
+    wybor = forms.ChoiceField(label="Szukaj w", choices=[('temat', 'tematach'), ('post', 'postach')], widget=RadioSelect())  
+    autor = forms.ChoiceField(choices=tuple([('', '')] + list((u.id, u) for u in Uzytkownik.objects.all())), required=False)
