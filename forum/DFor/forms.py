@@ -104,6 +104,5 @@ class formularzTemat(ModelForm):
 	}
 	
 class formularzSzukaj(forms.Form):
-    slowa = forms.CharField(label="Słowa kluczowe", required=False)
-    wybor = forms.ChoiceField(label="Szukaj w", choices=[('temat', 'tematach'), ('post', 'postach')], widget=RadioSelect())  
-    autor = forms.ChoiceField(choices=tuple([('', '')] + list((u.id, u) for u in Uzytkownik.objects.all())), required=False)
+    slowa = forms.CharField(label="Słowa kluczowe")
+    wybor = forms.ChoiceField(label="Szukaj w", choices=[('post', 'postach'), ('temat', 'tematach')], widget=RadioSelect())  

@@ -44,7 +44,7 @@ class Post(models.Model):
     return ((self.data_modyfikacji - self.data_utworzenia).seconds) != 0
   
 class Temat(models.Model):
-  tytul = models.CharField(max_length=70, verbose_name='Tytuł')
+  tytul = models.CharField(max_length=70, verbose_name='Tytuł', unique=True)
   posty = models.ManyToManyField(Post)
   
   def __unicode__(self):

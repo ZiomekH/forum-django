@@ -255,35 +255,15 @@ def widokSzukaj(request):
 	if form.is_valid():
 	    slowa = form.cleaned_data['slowa']
 	    wybor = form.cleaned_data['wybor']
-	    autor = form.cleaned_data['autor']
 	    if wybor == 'temat':
-		if slowa:
-		    if autor:
-			tematy = Temat.objects.filter(posty=Post.objects.filter(autor=autor)).extra()
-		    else:
-			tematy = Temat.objects.extra()
-		else:
-		    if autor:
-			tematy = Temat.objects.filter(posty=Post.objects.filter(autor=autor))
-		    else:
-			tematy = Temat.objects.all()
+		tematy = Temat.objects.extra(where=["tytul_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
 		return render_to_response("tematy.html", {'tematy': tematy, 'uzytkownik': uzytkownik})
+		
 	    elif wybor == 'post':
-		if slowa:
-		    if autor:
-			posty = Post.objects.filter(autor=autor).extra(where=["tekst_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
-		    else:
-			posty = Post.objects.extra(where=["tekst_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
-		else:
-		    if autor:
-			posty = Post.objects.filter(autor=autor).order_by('-data_modyfikacji')
-		    else:
-			posty = Post.objects.all().order_by('-data_modyfikacji')
+		posty = Post.objects.extra(where=["tekst_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
 		return render_to_response("posty.html", {'posty': posty, 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
-	    
-	    return HttpResponseRedirect('/dfor/')
     else:
-	form = formularzSzukaj(initial={'wybor': 'temat'})
+	form = formularzSzukaj(initial={'wybor': 'post'})
 	
     dane['form'] = form
     dane['uzytkownik'] = uzytkownik

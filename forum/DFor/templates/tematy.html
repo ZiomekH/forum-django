@@ -1,0 +1,31 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Wyniki wyszukiwania: Tematy
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/posty.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/post.css" />   
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="posty">
+	<div class="naglowek1">
+	    <div class="tytul">
+		<div class="belka lewy"></div>
+		<div class="belka srodek">
+		    <h1 class="tekst">
+ 			Wyniki wyszukiwania: Tematy
+		    </h1>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    <div style="clear: both;"></div>
+	</div>
+	
+	{% for temat in tematy %}
+	    {{ temat }}
+	{% endfor %}
+    </div>
+{% endblock %}

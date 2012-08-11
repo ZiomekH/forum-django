@@ -6,9 +6,16 @@ plainto_tsquery
 
 from DFor.models import *
 
-SELECT tekst 
-FROM "DFor_post", plainto_tsquery('public.polish', 'ala') query
-WHERE query @@ tekst_tsv
-ORDER BY ts_rank_cd(tekst_tsv, query) desc;
+SELECT tytul, ts_rank_cd(tytul_tsv, plainto_tsquery('public.polish', 'temacik'))
+FROM "DFor_temat"
+WHERE  plainto_tsquery('public.polish', 'temacik') @@ tytul_tsv
+ORDER BY ts_rank_cd(tytul_tsv, plainto_tsquery('public.polish', 'temacik')) desc;
+
+SELECT title, ts_rank_cd(textsearch, query) AS rank
+FROM apod, to_tsquery('neutrino|(dark & matter)') query
+WHERE query @@ textsearch
+ORDER BY rank DESC LIMIT 10;
 
 ts_rank_cd(textsearch, 'phrase') AS score
+
+User.objects.get(username__icontains='ad'
