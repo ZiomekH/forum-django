@@ -1,12 +1,19 @@
 #!/bin/bash
 
-#usuwanie
+sudo killall pgbouncer
+
+sleep 3
+
 dropdb -U postgres dfor
 dropuser -U postgres django
 
 #tworzenie
 createuser -U postgres -D -R -S -w django
 createdb -U postgres -E utf8 -O django dfor -T template0
+
+sudo su postgres -c 'pgbouncer -d /etc/pgbouncer'
+
+sleep 3
 
 ../forum/manage.py syncdb
 

@@ -58,35 +58,35 @@
 	<div class="tabela">
 	    <div class="ulozenie tematy">
 		<ul>
-		{% for temat in forum.tematy.all %}
+		{% for temat in forum.tematy %}
 		    <li><a href="/dfor/temat/{{ temat.id }}">{{ temat }}</a></li>
 		{% endfor %}
 		</ul>
 	    </div>
 	    <div class="ulozenie odpowiedzi">
 		<ul>
-		{% for temat in forum.tematy.all %}
+		{% for temat in forum.tematy %}
 		    <li>{{ temat.iloscOdpowiedzi }}</li>
 		{% endfor %} 
 		</ul>
 	    </div>
 	    <div class="ulozenie autorzy">
 		<ul>
-		{% for temat in forum.tematy.all %}
+		{% for temat in forum.tematy %}
 		    <li><a href="/dfor/uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a></li>
 		{% endfor %}    
 		</ul>
 	    </div>
 	    <div class="ulozenie ostatnie_posty">
 		<ul>
-		{% for temat in forum.tematy.all %}
+		{% for temat in forum.tematy %}
 		    <li><a href="/dfor/uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a></li>
 		{% endfor %}  
 		</ul>
 	    </div>
 	    <div class="ulozenie daty_modyfikacji">
 		<ul>
-		{% for temat in forum.tematy.all %}
+		{% for temat in forum.tematy %}
 		    <li>{{ temat.ostatniPost.data_modyfikacji|date:'d.m.Y H:i' }}</li>
 		{% endfor %}  
 		</ul>

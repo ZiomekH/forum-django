@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import *
 from forms import *
@@ -26,14 +27,22 @@ def zapiszAvatar(plik, nazwa):
 def widokFora(request):
     uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
     
-    naglowek1 = [{'nazwa': 'login','opis': 'Login'}, {'nazwa': 'email','opis': 'E-mail'}]
-    
     return render_to_response("fora.html", {'fora': Forum.objects.all(), 'uzytkownik': uzytkownik})
 
 
 def widokTemat(request, id):
     uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    return render_to_response("temat.html", {'temat': Temat.objects.get(id=id), 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+    podzial = Paginator(Post.objects.filter(temat=id).order_by('data_utworzenia'), 2)
+    
+    strona = request.GET.get('strona')
+    try:
+	posty = podzial.page(strona)
+    except PageNotAnInteger:
+	posty = podzial.page(1)
+    except EmptyPage:
+	posty = podzial.page(podzial.num_pages)
+	
+    return render_to_response("temat.html", {'posty': posty, 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
 
 
 def widokUzytkownicy(request):
@@ -81,7 +90,7 @@ def widokProfil(request):
 		profil.avatar = ''
 		profil.save()
 		formDodatkowe.save_m2m()
-	    #formDodatkowe.save()
+
 	    return HttpResponseRedirect('/dfor/uzytkownik/' + str(uzytkownik.id))
     else:
 	formGlowne = formularzProfilGlowne(instance=uzytkownik.uzytkownik)
@@ -286,8 +295,9 @@ def widokUsunPost(request, id):
 	post.delete()
 	return HttpResponseRedirect('/dfor/')	
     
+    temat = Temat.objects.filter(posty=post)[0].id
     post.delete()
-    return HttpResponseRedirect('/dfor/')
+    return HttpResponseRedirect('/dfor/temat/' + str(temat))
 
 
 def widokWyloguj(request):

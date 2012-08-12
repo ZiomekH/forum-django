@@ -1,7 +1,7 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    {{ temat.tytul }}
+    {{ posty.0.temat.tytul }}
 {% endblock %}
 
 {% block style %}
@@ -16,7 +16,7 @@
 		<div class="belka lewy"></div>
 		<div class="belka srodek">
 		    <h1 class="tekst">
-			{{ temat.tytul }}
+			{{ posty.0.temat.tytul }}
 		    </h1>
 		</div>
 		<div class="belka prawy"></div>
@@ -35,7 +35,7 @@
 	    <div style="clear: both;"></div>
 	</div>
 	
-	{% for post in temat.posty.all %}
+	{% for post in posty %}
 	{% include "post.html" %}
 	{% endfor %}
 	
@@ -44,7 +44,7 @@
 		<div class="belka lewy"></div>
 		<div class="belka srodek">
 		    <h1 class="tekst">
-			{{ temat.tytul }}
+			{{ posty.0.temat.tytul }}
 		    </h1>
 		</div>
 		<div class="belka prawy"></div>
