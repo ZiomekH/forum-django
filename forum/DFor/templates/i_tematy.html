@@ -1,0 +1,50 @@
+<div class="naglowek2">
+    {% for jeden in 12345|make_list %}
+	<div class="{% cycle 'temat' 'odpowiedzi' 'autor' 'ostatni_post' 'data_modyfikacji' %}">
+	    <div class="belka lewy"></div>
+	    <div class="belka srodek szerokosc">
+		<h2 class="tekst">
+		    {% if forum.iloscTematow > 5 and zadanie != 'forum' %}
+			{% cycle 'Temat (5 z '|add:forum.iloscTematowStr|add:')' 'Odpowiedzi' 'Autor' 'Ostatni post' 'Data modyfikacji' %}
+		    {% else %}
+			{% cycle 'Temat' 'Odpowiedzi' 'Autor' 'Ostatni post' 'Data modyfikacji' %}
+			{% endif %}
+		</h2>
+	    </div>
+	    <div class="belka prawy"></div>
+	</div>
+    {% endfor%}
+    <div style="clear: both;"></div>
+</div>
+	
+<div class="tabela">
+    {% for temat in tematy %}
+	<div class="tekst tematy">
+	    <a href="/dfor/temat/{{ temat.id }}">{{ temat }}</a>
+	 </div>
+	 
+	 <div class="tekst odpowiedzi">
+	    {{ temat.iloscOdpowiedzi }}
+	 </div>
+	 
+	 <div class="tekst autorzy">
+	    <a href="/dfor/uzytkownik/{{ temat.autorTematu.id }}">{{ temat.autorTematu }}</a>
+	 </div>
+	 
+	 <div class="tekst ostatnie_posty">
+	    <a href="/dfor/uzytkownik/{{ temat.ostatniPost.autor.id }}">{{ temat.ostatniPost.autor }}</a>
+	 </div>
+	 
+	 <div class="tekst daty_modyfikacji">
+	    {{ temat.ostatniPost.data_modyfikacji|date:'H:i d.m.Y' }}
+	 </div>
+	 <div style="clear: both;"></div>
+	 
+	 <div class="kreska tematy"></div>
+	 <div class="kreska odpowiedzi"></div>
+	 <div class="kreska autorzy"></div>
+	 <div class="kreska ostatnie_posty"></div>
+	 <div class="kreska daty_modyfikacji"></div>
+	 <div style="clear: both;"></div>
+    {% endfor %}
+</div>

@@ -1,0 +1,67 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Użytkownicy
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="lista_uzytkownikow">
+	<div class="naglowek2">
+	{% for jeden in 12345|make_list %}
+	    <div class="{% cycle 'login' 'email' 'plec' 'skad' 'posty' %}">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
+		    <h2 class="tekst">
+			{% cycle 'Login' 'E-mail' 'Płeć' 'Skąd' 'Posty' %}
+		    </h2>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	{% endfor%}
+	    <div style="clear: both;"></div>
+	</div>
+	
+	<div class="tabela">
+	    {% for uzytk in uzytkownicy %}
+		<div class="tekst login">
+		    <a href="/dfor/uzytkownik/{{ uzytk.id }}">{{ uzytk.uzytkownik.username }}</a>
+		</div>
+		
+		<div class="tekst email">
+		    <a href="mailto:{{ uzytk.uzytkownik.email }}">{{ uzytk.uzytkownik.email }}</a>
+		</div>
+		
+		<div class="tekst plec">
+		    {% if uzytk.plec = 'K' %}
+			Kobieta
+		    {% elif uzytk.plec = 'M' %}
+			Mężczyzna
+		    {% else %}
+			?
+		    {% endif %}
+		</div>
+		
+		<div class="tekst skad">
+		    {% if uzytk.miejscowosc %}
+			{{ uzytk.miejscowosc }}
+		    {% else %}
+			?
+		    {% endif %}
+		</div>
+		
+		<div class="tekst posty">
+		    {{ uzytk.iloscPostow }}
+		</div>
+		<div style="clear: both;"></div>
+
+		<div class="kreska login"></div>
+		<div class="kreska email"></div>
+		<div class="kreska plec"></div>
+		<div class="kreska skad"></div>
+		<div class="kreska posty"></div>
+		<div style="clear: both;"></div>
+	    {% endfor %}
+	</div>
+	{% include "i_nawigacja_podstronami.html" with dane=uzytkownicy %}
+    </div>
+{% endblock %}

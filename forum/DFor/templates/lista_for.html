@@ -1,0 +1,46 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Strona główna
+{% endblock %}
+
+{% block zawartosc %}
+    {% for forum in fora %}
+    <div class="forum lista_tematow">
+	<div class="naglowek1">
+	    <a href="forum/{{ forum.id }}">
+		<div class="tytul">
+		    <div class="belka lewy"></div>
+		    <div class="belka srodek">
+			<h1 class="tekst">
+			    {{ forum }}
+			</h1>
+		    </div>
+		    <div class="belka prawy"></div>
+		</div>
+	    </a>
+	    <a href="nowytemat/{{ forum.id }}">
+		<div class="nowy_temat">
+		    <div class="belka lewy"></div>
+		    <div class="belka srodek">
+			<h1 class="tekst">
+			    Nowy temat
+			</h1>
+		    </div>
+		    <div class="belka prawy"></div>
+		</div>
+	    </a>
+	    <div style="clear: both;"></div>
+	    {% if forum.opis %}
+		<p class="opis">
+		    {{ forum.opis }}
+		</p>
+	    {% endif %}
+	</div>
+
+	{% include "i_tematy.html" with tematy=forum.tematy|slice:":5" %}
+    </div>
+    {% empty %}
+	Puste forum
+    {% endfor %}
+{% endblock %}

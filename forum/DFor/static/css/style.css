@@ -27,7 +27,6 @@ h1 {
 
 h2 {
 	letter-spacing: -.05em;
-	text-transform: uppercase;
 	font-size: 1.0em;
 	font-weight: bold;
 	color: white;
@@ -219,25 +218,23 @@ header {
     padding: 7.5px 0;
 }
 
-
 /* Tabelka liniowa */
 
-.tabela ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.tabela {
+    margin-top: 5px;
+}
+.tabela .tekst {
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
 }
 
-.tabela li {
+.tabela .kreska {
+    float: left;
     padding: 5px;
     background: url('../obrazki/linia.gif') repeat-x left bottom;
-    font-size: .8em;
 }
-
-.tabela .ulozenie {
-    float: left;
-}
-
 
 /* Formularz */
 
@@ -255,6 +252,493 @@ header {
     margin-top: 3px;
     text-align: left;
 }
+
+
+/* Nawigacja podstronami */
+
+#nawigacja_podstronami {
+    margin-top: 10px;
+    width: 390px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nawigacja_podstronami .naglowek2 .szerokosc {
+    width: 166px;
+}
+
+#nawigacja_podstronami .naglowek2 .nawigacja .szerokosc {
+    width: 106px;
+}
+
+#nawigacja_podstronami .naglowek2 .pusto {
+    width: 110px;
+}
+
+
+/* Fora i forum */
+
+.forum {
+    padding: 20px 0 0 0;
+}
+
+.forum .naglowek1 .tytul .srodek {
+    width: 942px;
+}
+
+.forum .naglowek1 .tytul h1.tekst {
+    padding: 10px 0  0 15px;
+    font-weight: bold;
+    font-size: 2.0em;
+}
+
+.forum .naglowek1 .nowy_temat .srodek {
+    width: 150px;
+}
+
+.forum .naglowek1 .nowy_temat h1.tekst {
+    padding: 10px 0;
+    font-size: 2.0em;
+    text-align: center;
+}
+
+
+/* Lista tematow */
+
+.lista_tematow .naglowek2 {
+    margin: 10px 0 0 0;
+}
+
+.lista_tematow .naglowek2 .szerokosc {
+    width: 146px;
+}
+
+.lista_tematow .naglowek2 .temat .szerokosc {
+    width: 556px;
+}
+
+.lista_tematow .odpowiedzi .szerokosc {
+    width: 96px;
+}
+
+.lista_tematow .naglowek2 .data_modyfikacji .szerokosc {
+    width: 136px;
+}
+
+.lista_tematow .tabela .tematy {
+    width: 550px;
+/*     background: red; */
+}
+
+.lista_tematow .tabela .odpowiedzi {
+    width: 90px;
+    text-align: center;
+}
+
+.lista_tematow .tabela .autorzy {
+    width: 140px;
+    text-align: center;
+}
+
+.lista_tematow .tabela .ostatnie_posty {
+    width: 140px;
+    text-align: center;
+}
+
+.lista_tematow .tabela .daty_modyfikacji {
+    width: 130px;
+    text-align: center;
+}
+
+
+
+
+/* Lista postow */
+
+.lista_postow {
+    padding: 20px 0 0 0;
+}
+
+.lista_postow .naglowek1 .tytul h1.tekst {
+    padding: 10px 0  0 15px;
+    font-weight: bold;
+    font-size: 2.0em;
+}
+
+.lista_postow .naglowek1 .odpowiedz h1.tekst {
+    padding: 10px 0;
+    font-size: 2.0em;
+    text-align: center;
+}
+
+.lista_postow .naglowek1 .tytul .srodek {
+    width: 942px;
+}
+
+.lista_postow .naglowek1 .odpowiedz .srodek {
+    width: 150px;
+}
+
+
+/* Posty uzytkownika */
+
+.posty_uzytkownika {
+    padding: 20px 0 0 0;
+}
+
+.posty_uzytkownika .naglowek1 .tytul .srodek {
+    width: 1096px;
+    text-align: center;
+}
+
+
+/* Post */
+
+.post .naglowek2 {
+    margin: 10px 0 0 0;
+}
+
+.post .naglowek2 .autor .szerokosc {
+    width: 196px;
+}
+
+.post .naglowek2 .wiadomosc .szerokosc {
+    width: 896px;
+}
+
+.post .naglowek2 .wiadomosc_z_edycja .szerokosc {
+    width: 696px;
+}
+
+.post .naglowek2 .edytuj .szerokosc {
+    width: 96px;
+}
+
+.post .naglowek2 .usun .szerokosc {
+    width: 96px;
+}
+
+.post .tabelka {
+    float: left;
+}
+
+.post .napis_autor {
+    margin: 0 0 0 10px;
+    width: 190px;
+}
+
+.post .napis_autor .tekst {
+    font-weight: bold;
+}
+
+.post .napis_autor .nieznany a{
+    color: #000;
+}
+
+.post .napis_autor .kobieta a{
+    color: #f622cc;
+}
+
+.post .napis_autor .mezczyzna a{
+    color: #120dc9;
+}
+
+.post .wiadomosc {
+    margin: 0 0 0 10px;
+    width: 890px;
+}
+
+.post .wiadomosc .tresc {
+    margin: 10px 0 0 0;
+}
+
+.post .wiadomosc .kreska {
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+}
+
+.post .podpis {
+    margin: 0;
+    font-style:italic;
+}
+
+.post .daty {
+    margin: 0;
+    padding: 5px 0px 0px 0px;
+    background: url('../obrazki/linia.gif') repeat-x left bottom;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000;
+}
+
+
+/* Formularz postow */
+
+.formularz_postow {
+    padding: 20px 0 0 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    text-align: center;
+}
+
+.formularz_postow .formularz {
+    width: 616px;
+}
+
+
+.formularz_postow .formularz .opis {
+    width: 30px;
+}
+
+.formularz_postow .naglowek2 .szerokosc {
+    width: 896px;
+}
+
+.formularz_postow .naglowek2 .guzik .szerokosc {
+    width: 96px;
+}
+
+.formularz_postow .zawartosc {
+    padding: 10px 0 0 10px;
+}
+
+
+/* Szukaj */
+
+.szukaj {
+    padding: 20px 0 0 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    text-align: center;
+}
+
+.szukaj .tabelka {
+    text-align: left;
+}
+
+.szukaj .formularz {
+    width: 400px;
+}
+
+.szukaj .formularz .opis {
+    width: 90px;
+}
+
+.szukaj .naglowek2 .szerokosc {
+    width: 496px;
+}
+
+.szukaj .naglowek2 .guzik .szerokosc {
+    width: 496px;
+}
+
+.szukaj .zawartosc {
+    padding: 10px 0 0 0;
+}
+
+.szukaj .zawartosc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Szukaj w postach */
+
+.szukaj_wyniki {
+    padding: 20px 0 0 0;
+}
+
+.szukaj_wyniki .naglowek1 .tytul .srodek {
+    width: 1096px;
+    text-align: center;
+}
+
+
+/* Lista uzytkownikow */
+
+.lista_uzytkownikow {
+    padding: 20px 0 0 0;
+}
+
+.lista_uzytkownikow .naglowek2 .szerokosc {
+    width: 278px;
+}
+
+.lista_uzytkownikow .naglowek2 .posty .szerokosc {
+    width: 100px;
+}
+
+.lista_uzytkownikow .naglowek2 .plec .szerokosc {
+    width: 146px;
+}
+
+.lista_uzytkownikow .tabela .tekst {
+    text-align: center;
+    width: 272px;
+}
+
+.lista_uzytkownikow .tabela .kreska {
+    width: 272px;
+}
+
+.lista_uzytkownikow .tabela .posty {
+    width: 94px;
+}
+
+.lista_uzytkownikow .tabela .plec {
+    width: 140px;
+
+}
+
+
+/* Uzytkownik */
+
+.uzytkownik {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    padding: 20px 0 0 0;
+}
+
+.uzytkownik .naglowek2 .szerokosc {
+    width: 496px;
+}
+
+.uzytkownik .zawartosc {
+  text-align: center;   
+}
+
+
+/* Profil */
+
+.profil {
+    padding: 20px 0 0 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    text-align: center;
+}
+
+.profil .formularz {
+    width: 390px;
+}
+
+.profil .formularz .opis {
+    width: 100px;
+}
+
+.profil .naglowek2 .szerokosc {
+    width: 596px;
+}
+
+.profil .naglowek2 .guzik .szerokosc {
+    width: 96px;
+}
+
+.profil .zawartosc {
+    padding: 10px 0 0 0;
+}
+
+.profil .zawartosc textarea {
+    width: 280px; 
+    height: 45px;
+    resize: none;
+}
+
+
+/* Zmiana hasla */
+
+.zmiana_hasla {
+    margin-left: auto;
+    margin-right: auto;
+    width: 280px;
+    padding: 20px 0 0 0;
+    text-align: center;
+}
+
+.zmiana_hasla  .formularz {
+    margin-top: 10px;
+    width: 276px;
+}
+
+.zmiana_hasla  .formularz .opis {
+    width: 90px;
+}
+
+.zmiana_hasla .naglowek2 .szerokosc {
+    width: 276px;
+}
+
+.zmiana_hasla .naglowek2 .guzik .szerokosc {
+    width: 96px;
+}
+
+
+/* Zaloguj */
+
+.zaloguj {
+    margin-left: auto;
+    margin-right: auto;
+    width: 316px;
+    padding: 20px 0 0 0;
+    text-align: center;
+}
+
+.zaloguj .formularz {
+    margin-top: 10px;
+    width: 306px;
+}
+
+.zaloguj .formularz .opis {
+    width: 120px;
+}
+
+.zaloguj .naglowek2 .szerokosc {
+    width: 312px;
+}
+
+.zaloguj .naglowek2 .guzik .szerokosc {
+    width: 96px;
+}
+
+/* Zarejestruj */
+
+.zarejestruj {
+    padding: 20px 0 0 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 410px;
+    text-align: center;
+}
+
+.zarejestruj .formularz {
+    width: 350px;
+}
+
+.zarejestruj .formularz .opis {
+    width: 100px;
+}
+
+.zarejestruj .naglowek2 .szerokosc {
+    width: 406px;
+}
+
+.zarejestruj .naglowek2 .guzik .szerokosc {
+    width: 96px;
+}
+
+.zarejestruj .zawartosc {
+    padding: 10px 0 0 0;
+}
+
+.zarejestruj .zawartosc textarea {
+    width: 240px; 
+    height: 45px;
+    resize: none;
+}
+
 
 
 /* Stopka */

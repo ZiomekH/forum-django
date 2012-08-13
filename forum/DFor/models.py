@@ -39,8 +39,14 @@ class Forum(models.Model):
 	return self.nazwa
 	
     def tematy(self):
-	return Temat.objects.filter(forum=self)
+	return Temat.objects.filter(forum=self).order_by('-data_utworzenia')
 
+    def iloscTematow(self):
+	return Temat.objects.filter(forum=self).count()
+	
+    def iloscTematowStr(self):
+	return str(Temat.objects.filter(forum=self).count())
+	
     
 class Temat(models.Model):
     tytul = models.CharField(max_length=70, verbose_name='Tytuł', unique=True)

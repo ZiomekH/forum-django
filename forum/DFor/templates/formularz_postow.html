@@ -2,16 +2,13 @@
 
 {% block title %}
     {% if zadanie == 'odpowiedz' %}
-	Odpowiedź w {{ temat.tytul }}
+	Odpowiedź w
     {% elif zadanie == 'nowy_temat' %}
-	Tworzenie nowego tematu w {{ forum.nazwa }}
+	Tworzenie nowego tematu w
     {% elif zadanie == 'edytuj' %}
-	Edycja postu w {{ temat.tytul }}
+	Edycja postu w
     {% endif %}
-{% endblock %}
-
-{% block style %}
-    <link rel="stylesheet" type="text/css" href="/static/css/formularz_post.css" />
+    {{ tytul }}
 {% endblock %}
 
 {% block head %}
@@ -36,19 +33,20 @@
 {% endblock %}
 
 {% block zawartosc %}
-    <div class="formularz_post">
+    <div class="formularz_postow">
 	<div class="naglowek2">
 	    <div class="podpis">
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc" id="id_podpis">
 		    <h2 class="tekst">
 			{% if zadanie == 'odpowiedz' %}
-			    Odpowiedź w {{ temat.tytul }}
+			    Odpowiedź w
 			{% elif zadanie == 'nowy_temat' %}
-			    Tworzenie nowego tematu w {{ forum.nazwa }}
+			    Tworzenie nowego tematu w 
 			{% elif zadanie == 'edytuj' %}
-			    Edycja postu w {{ temat.tytul }}
+			    Edycja postu w
 			{% endif %}
+			{{ tytul }}
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
@@ -63,7 +61,7 @@
 	    {% csrf_token %}
 	    {% if formTemat %}
 		<div class="formularz">
-		    {% include "formularz.html" with form=formTemat %}
+		    {% include "i_formularz.html" with form=formTemat %}
 		</div>
 	    {% endif %}
 	    <div>

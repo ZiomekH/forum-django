@@ -1,0 +1,41 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    {{ tytul }}
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="{{ zadanie }}">
+	<div class="naglowek1">
+	    <div class="tytul">
+		<div class="belka lewy"></div>
+		<div class="belka srodek">
+		    <h1 class="tekst">
+			{{ tytul }}
+		    </h1>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    {% if zadanie == 'lista_postow' %}
+		<a href="odpowiedz/">
+		    <div class="odpowiedz">
+			<div class="belka lewy"></div>
+			<div class="belka srodek">
+			    <h1 class="tekst">
+				Odpowiedz
+			    </h1>
+			</div>
+			<div class="belka prawy"></div>
+		    </div>
+		</a>
+	    {% endif %}
+	    <div style="clear: both;"></div>
+	</div>
+	
+	{% for post in posty %}
+	    {% include "i_post.html" %}
+	{% endfor %}
+	
+	{% include "i_nawigacja_podstronami.html" with dane=posty %}
+    </div>
+{% endblock %}

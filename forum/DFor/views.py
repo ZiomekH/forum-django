@@ -18,22 +18,30 @@ def sprUzytkownika(request, czyZalogowany):
     return ''
 
 
-def zapiszAvatar(plik, nazwa):  
-    with open(nazwa, 'wb+') as destination:
-        for chunk in plik.chunks():
-            destination.write(chunk)
+def widokFor(request):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())  
+    return render_to_response("lista_for.html", {'fora': Forum.objects.all(), 'uzytkownik': uzytkownik})
+
+
+def widokForum(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated()) 
     
+    podzial = Paginator(Temat.objects.filter(forum=id).order_by('-data_utworzenia'), 25)
+    strona = request.GET.get('strona')
+    try:
+	tematy = podzial.page(strona)
+    except PageNotAnInteger:
+	tematy = podzial.page(1)
+    except EmptyPage:
+	tematy = podzial.page(podzial.num_pages)
     
-def widokFora(request):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    
-    return render_to_response("fora.html", {'fora': Forum.objects.all(), 'uzytkownik': uzytkownik})
+    return render_to_response("lista_tematow.html", {'forum': Forum.objects.get(id=id), 'tematy': tematy, 'tytul': Forum.objects.get(id=id).nazwa, 'zadanie': 'forum', 'uzytkownik': uzytkownik})
 
 
 def widokTemat(request, id):
     uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    podzial = Paginator(Post.objects.filter(temat=id).order_by('data_utworzenia'), 2)
     
+    podzial = Paginator(Post.objects.filter(temat=id).order_by('data_utworzenia'), 10)
     strona = request.GET.get('strona')
     try:
 	posty = podzial.page(strona)
@@ -42,7 +50,189 @@ def widokTemat(request, id):
     except EmptyPage:
 	posty = podzial.page(podzial.num_pages)
 	
-    return render_to_response("temat.html", {'posty': posty, 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+    return render_to_response("lista_postow.html", {'posty': posty, 'tytul': Temat.objects.get(id=id).tytul, 'zadanie': 'lista_postow', 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+
+
+def widokPostyUzytkownika(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    
+    podzial = Paginator(Post.objects.filter(autor=id).order_by('-data_modyfikacji'), 10)
+    strona = request.GET.get('strona')
+    try:
+	posty = podzial.page(strona)
+    except PageNotAnInteger:
+	posty = podzial.page(1)
+    except EmptyPage:
+	posty = podzial.page(podzial.num_pages)
+    
+    return render_to_response("lista_postow.html", {'posty': posty, 'tytul': 'Posty użytkownika: ' + str(Uzytkownik.objects.get(id=id)), 'zadanie': 'posty_uzytkownika' ,'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+
+
+def widokNowyTemat(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    if (not request.user.is_authenticated()):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST)
+	formTemat = formularzTemat(request.POST)
+	if formPost.is_valid() and formTemat.is_valid():
+	    temat = formTemat.save(commit=False)
+	    temat.forum = Forum.objects.get(id=id)
+	    temat.save()	    
+	    post = formPost.save(commit=False)
+	    post.autor = uzytkownik
+	    post.temat = temat
+	    post.save()
+	    formPost.save_m2m()
+	    formTemat.save_m2m()
+	    
+	    return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
+    else:
+	formPost = formularzPost()
+	formTemat = formularzTemat()
+	
+    dane['formPost'] = formPost
+    dane['formTemat'] = formTemat
+    dane['zadanie'] = 'nowy_temat'
+    dane['tytul'] = Forum.objects.get(id=id).nazwa
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('formularz_postow.html', dane)
+
+
+def widokOdpowiedz(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    if (not request.user.is_authenticated()):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST)
+	if formPost.is_valid():
+	    post = formPost.save(commit=False)
+	    post.autor = uzytkownik
+	    post.temat = Temat.objects.get(id=id)
+	    post.save()
+	    formPost.save_m2m()
+	    return HttpResponseRedirect('/dfor/temat/' + id + '?strona=9999999999999999')
+    else:
+	formPost = formularzPost()
+	
+    dane['formPost'] = formPost
+    dane['zadanie'] = 'odpowiedz'
+    dane['tytul'] = Temat.objects.get(id=id).tytul
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('formularz_postow.html', dane)
+
+
+def widokEdytujPost(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    if (not request.user.is_authenticated()):
+	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+	
+    post = Post.objects.get(id=id)
+    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
+	return HttpResponseRedirect('/dfor/')
+	
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	formPost = formularzPost(request.POST, instance=Post.objects.get(id=id))
+	if formPost.is_valid():
+	    formPost.save()
+	    return HttpResponseRedirect('/dfor/temat/' + str(Post.objects.get(id=id).temat.id))
+    else:
+	formPost = formularzPost(instance=Post.objects.get(id=id))
+	
+    dane['formPost'] = formPost
+    dane['zadanie'] = 'edytuj'
+    dane['tytul'] = Post.objects.get(id=id).temat.tytul
+    dane['uzytkownik'] = uzytkownik
+	
+    return render_to_response('formularz_postow.html', dane)
+
+
+def widokUsunPost(request, id):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    if (not request.user.is_authenticated()):
+	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+	
+    post = Post.objects.get(id=id)
+    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
+	return HttpResponseRedirect('/dfor/')
+
+    if (post.temat.iloscOdpowiedzi() == 0):
+	post.temat.delete()
+	post.delete()
+	return HttpResponseRedirect('/dfor/')	
+    
+    post.delete()
+    return HttpResponseRedirect('/dfor/temat/' + str(post.temat.id))
+
+
+def szukajWPostach(request, slowa):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    
+    podzial = Paginator(Post.objects.extra(where=["tekst_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa]), 10)
+    strona = request.GET.get('strona')
+    try:
+	posty = podzial.page(strona)
+    except PageNotAnInteger:
+	posty = podzial.page(1)
+    except EmptyPage:
+	posty = podzial.page(podzial.num_pages)
+    
+    return render_to_response("lista_postow.html", {'posty': posty, 'tytul': 'Wyniki wyszykiwania w postach', 'zadanie': 'szukaj_wyniki', 'dodatek': '&post=' + slowa, 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+
+
+def szukajWTematach(request, slowa):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    
+    podzial = Paginator(Temat.objects.extra(where=["tytul_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa]), 25)
+    strona = request.GET.get('strona')
+    try:
+	tematy = podzial.page(strona)
+    except PageNotAnInteger:
+	tematy = podzial.page(1)
+    except EmptyPage:
+	tematy = podzial.page(podzial.num_pages)
+    
+    return render_to_response("lista_tematow.html", {'tematy': tematy, 'tytul': 'Wyniki wyszykiwania w tematach', 'zadanie': 'szukaj_wyniki', 'dodatek': '&temat=' + slowa, 'uzytkownik': uzytkownik})
+
+
+def widokSzukaj(request):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    dane = {}
+    dane.update(csrf(request))
+    dane['uzytkownik'] = uzytkownik
+    
+    temat = request.GET.get('temat')
+    post = request.GET.get('post')
+    strona = request.GET.get('strona')
+    
+    if request.method == "POST":
+	form = formularzSzukaj(request.POST)
+	if form.is_valid():
+	    slowa = form.cleaned_data['slowa']
+	    wybor = form.cleaned_data['wybor']
+	    if wybor == 'temat':
+		return szukajWTematach(request, slowa)	
+	    elif wybor == 'post':	
+		return szukajWPostach(request, slowa)
+    elif strona:
+	if temat:
+	    return szukajWTematach(request, temat)
+	if post:
+	    return szukajWPostach(request, post)
+    else:
+	form = formularzSzukaj(initial={'wybor': 'post'})
+	
+    dane['form'] = form
+	
+    return render_to_response('formularz_szukaj.html', dane)
 
 
 def widokUzytkownicy(request):
@@ -50,19 +240,30 @@ def widokUzytkownicy(request):
     if (not request.user.is_authenticated()):
       return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
       
-    return render_to_response("uzytkownicy.html", {'uzytkownicy': Uzytkownik.objects.all(), 'uzytkownik': uzytkownik})
+    podzial = Paginator(Uzytkownik.objects.all(), 25)
+    strona = request.GET.get('strona')
+    try:
+	uzytkownicy = podzial.page(strona)
+    except PageNotAnInteger:
+	uzytkownicy = podzial.page(1)
+    except EmptyPage:
+	uzytkownicy = podzial.page(podzial.num_pages)
+      
+    return render_to_response("lista_uzytkownkow.html", {'uzytkownicy': uzytkownicy, 'uzytkownik': uzytkownik})
 
 
 def widokUzytkownik(request, id):
     uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
     if (not request.user.is_authenticated()):
       return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+      
     return render_to_response("uzytkownik.html", {'uzytk': Uzytkownik.objects.get(id=id), 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
 
-    
-def widokPostyUzytkownika(request, id):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    return render_to_response("posty.html", {'posty': Post.objects.filter(autor=id).order_by('-data_modyfikacji'), 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
+
+def zapiszAvatar(plik, nazwa):  
+    with open(nazwa, 'wb+') as destination:
+        for chunk in plik.chunks():
+            destination.write(chunk)
 
 
 def widokProfil(request):
@@ -100,10 +301,31 @@ def widokProfil(request):
     dane['formDodatkowe'] = formDodatkowe
     dane['uzytkownik'] = uzytkownik
     
-    return render_to_response('profil.html', dane)
+    return render_to_response('formularz_profil.html', dane)
 
 
-def widokRejestruj(request):
+def widokZmianaHasla(request):
+    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
+    if (not request.user.is_authenticated()):
+      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
+    dane = {}
+    dane.update(csrf(request))
+    if request.method == "POST":
+	form = formularzProfilHaslo(request.POST)
+	if form.is_valid():
+	    uzytkownik.uzytkownik.set_password(form.cleaned_data['noweHaslo1'])
+	    uzytkownik.uzytkownik.save()
+	    return HttpResponseRedirect('/dfor/')
+    else:
+	form = formularzProfilHaslo(initial={'idUzytkownika': uzytkownik.id})
+	
+    dane['form'] = form
+    dane['uzytkownik'] = uzytkownik
+    
+    return render_to_response('formularz_zmiana_hasla.html', dane)
+
+
+def widokZarejestruj(request):
     uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
     if (request.user.is_authenticated()):
       return HttpResponseRedirect('/dfor/')
@@ -140,164 +362,7 @@ def widokRejestruj(request):
     dane['formDodatkowe'] = formDodatkowe
     dane['formHaslo'] = formHaslo
     
-    return render_to_response('rejestruj.html', dane)
-
-    
-def widokZmianaHasla(request):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    if (not request.user.is_authenticated()):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
-    dane = {}
-    dane.update(csrf(request))
-    if request.method == "POST":
-	form = formularzProfilHaslo(request.POST)
-	if form.is_valid():
-	    uzytkownik.uzytkownik.set_password(form.cleaned_data['noweHaslo1'])
-	    uzytkownik.uzytkownik.save()
-	    return HttpResponseRedirect('/dfor/')
-    else:
-	form = formularzProfilHaslo(initial={'idUzytkownika': uzytkownik.id})
-	
-    dane['form'] = form
-    dane['uzytkownik'] = uzytkownik
-    
-    return render_to_response('zmiana_hasla.html', dane)
-    
-
-def widokOdpowiedz(request, id):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    if (not request.user.is_authenticated()):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
-    dane = {}
-    dane.update(csrf(request))
-    if request.method == "POST":
-	formPost = formularzPost(request.POST)
-	if formPost.is_valid():
-	    post = formPost.save(commit=False)
-	    post.autor = uzytkownik
-	    post.save()
-	    formPost.save_m2m()
-	    temat = Temat.objects.get(id=id)
-	    temat.posty.add(post)
-	    temat.save()
-	    return HttpResponseRedirect('/dfor/temat/' + id)
-    else:
-	formPost = formularzPost()
-	
-    dane['formPost'] = formPost
-    dane['zadanie'] = 'odpowiedz'
-    dane['temat'] = Temat.objects.get(id=id)
-    dane['uzytkownik'] = uzytkownik
-	
-    return render_to_response('formularz_post.html', dane)
-
-
-def widokNowyTemat(request, id):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    if (not request.user.is_authenticated()):
-      return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
-    dane = {}
-    dane.update(csrf(request))
-    if request.method == "POST":
-	formPost = formularzPost(request.POST)
-	formTemat = formularzTemat(request.POST)
-	if formPost.is_valid() and formTemat.is_valid():
-	    post = formPost.save(commit=False)
-	    post.autor = uzytkownik
-	    post.save()
-	    temat = formTemat.save(commit=False)
-	    temat.save()
-	    temat.posty.add(post)
-	    forum = Forum.objects.get(id=id)
-	    forum.tematy.add(temat)
-	    forum.save()
-	    formPost.save_m2m()
-	    formTemat.save_m2m()
-	    
-	    return HttpResponseRedirect('/dfor/temat/' + str(temat.id))
-    else:
-	formPost = formularzPost()
-	formTemat = formularzTemat()
-	
-    dane['formPost'] = formPost
-    dane['formTemat'] = formTemat
-    dane['zadanie'] = 'nowy_temat'
-    dane['forum'] = Forum.objects.get(id=id)
-    dane['uzytkownik'] = uzytkownik
-	
-    return render_to_response('formularz_post.html', dane)
-
-
-def widokEdytujPost(request, id):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    if (not request.user.is_authenticated()):
-	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
-	
-    post = Post.objects.get(id=id)
-    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
-	return HttpResponseRedirect('/dfor/')
-	
-    dane = {}
-    dane.update(csrf(request))
-    if request.method == "POST":
-	formPost = formularzPost(request.POST, instance=Post.objects.get(id=id))
-	if formPost.is_valid():
-	    formPost.save()
-	    return HttpResponseRedirect('/dfor/temat/' + str(Temat.objects.filter(posty=post)[0].id))
-    else:
-	formPost = formularzPost(instance=Post.objects.get(id=id))
-	
-    dane['formPost'] = formPost
-    dane['zadanie'] = 'edytuj'
-    dane['temat'] = Temat.objects.filter(posty=post)[0]
-    dane['uzytkownik'] = uzytkownik
-	
-    return render_to_response('formularz_post.html', dane)
-
-
-def widokSzukaj(request):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    dane = {}
-    dane.update(csrf(request))
-    if request.method == "POST":
-	form = formularzSzukaj(request.POST)
-	if form.is_valid():
-	    slowa = form.cleaned_data['slowa']
-	    wybor = form.cleaned_data['wybor']
-	    if wybor == 'temat':
-		tematy = Temat.objects.extra(where=["tytul_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
-		return render_to_response("tematy.html", {'tematy': tematy, 'uzytkownik': uzytkownik})
-		
-	    elif wybor == 'post':
-		posty = Post.objects.extra(where=["tekst_tsv @@ plainto_tsquery('public.polish', '%s')" % slowa])
-		return render_to_response("posty.html", {'posty': posty, 'media': settings.MEDIA_URL, 'uzytkownik': uzytkownik})
-    else:
-	form = formularzSzukaj(initial={'wybor': 'post'})
-	
-    dane['form'] = form
-    dane['uzytkownik'] = uzytkownik
-	
-    return render_to_response('szukaj.html', dane)
-
-
-def widokUsunPost(request, id):
-    uzytkownik = sprUzytkownika(request, request.user.is_authenticated())
-    if (not request.user.is_authenticated()):
-	return HttpResponseRedirect('/dfor/zaloguj/?next=' + request.path)
-	
-    post = Post.objects.get(id=id)
-    if(post.autor != uzytkownik and not uzytkownik.uzytkownik.is_staff):
-	return HttpResponseRedirect('/dfor/')
-
-    temat = Temat.objects.filter(posty=post)[0]
-    if (temat.posty.count() == 1):
-	temat.delete()
-	post.delete()
-	return HttpResponseRedirect('/dfor/')	
-    
-    temat = Temat.objects.filter(posty=post)[0].id
-    post.delete()
-    return HttpResponseRedirect('/dfor/temat/' + str(temat))
+    return render_to_response('formularz_zarejestruj.html', dane)
 
 
 def widokWyloguj(request):

@@ -1,0 +1,49 @@
+<div id="nawigacja_podstronami">
+    {% if dane.has_other_pages %}
+	<div class="naglowek2">
+	    {% if dane.has_previous %}
+		<a href="?strona={{ dane.previous_page_number }}{% if dodatek %}{{ dodatek }}{% endif %}">
+		    <div class="nawigacja">
+			<div class="belka lewy"></div>
+			<div class="belka srodek szerokosc">
+			    <h2 class="tekst">
+				Poprzednia
+			    </h2>
+			</div>
+			<div class="belka prawy"></div>
+		    </div>
+		</a>
+	    {% else %}
+		<div class="belka pusto"></div>
+	    {% endif %}
+	    
+	    <div class="aktualna">
+		<div class="belka lewy"></div>
+		    <div class="belka srodek szerokosc">
+			<h2 class="tekst">
+			    Strona {{ dane.number }} z {{ dane.paginator.num_pages }}
+			</h2>
+		    </div>
+		<div class="belka prawy"></div>
+	    </div>
+	    
+	    
+	    {% if dane.has_next %}
+		<a href="?strona={{ dane.next_page_number }}{% if dodatek %}{{ dodatek }}{% endif %}">
+		    <div class="nawigacja">
+			<div class="belka lewy"></div>
+			<div class="belka srodek szerokosc">
+			    <h2 class="tekst">
+				Następna
+			    </h2>
+			</div>
+			<div class="belka prawy"></div>
+		    </div>
+		</a>
+	    {% else %}
+		<div class="belka pusto"></div>
+	    {% endif %}
+	    <div style="clear: both;"></div>
+	</div>
+    {% endif %}
+</div>

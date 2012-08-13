@@ -1,0 +1,51 @@
+{% extends "baza.html" %}
+
+{% block title %}
+    Szukaj
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+	    $('#id_slowa').focus();
+	    $('#form_submit').hide();
+	    $('#id_podpis').html('');
+  	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Szukaj</h2></div><div class=\"belka prawy\"></div></a>");
+	});
+	function slij() {
+ 	    $('#id_safe').val('on');
+	    $('#id_form').submit();
+	}
+    </script>
+{% endblock %}
+
+{% block zawartosc %}
+    <div class="szukaj">
+	<div class="naglowek2">
+	    <div class="podpis" id="id_podpis">
+		<div class="belka lewy"></div>
+		<div class="belka srodek szerokosc">
+		    <h2 class="tekst">
+			Szukaj
+		    </h2>
+		</div>
+		<div class="belka prawy"></div>
+	    </div>
+	    
+	    <div class="guzik" id="id_guzik"></div>
+	    <div style="clear: both;"></div>
+	</div>
+  
+	<div class="zawartosc">
+	    <div class="formularz">
+	    <form action="." method="post" id="id_form">
+	    {% csrf_token %}
+		{% include "i_formularz.html" %}
+		<input type="submit" value="Szukaj" id="form_submit" />
+	    </form>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
+

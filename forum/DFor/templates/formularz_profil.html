@@ -4,10 +4,6 @@
     Edycja profilu użytkownika {{ uzytkownik }}
 {% endblock %}
 
-{% block style %}
-    <link rel="stylesheet" type="text/css" href="/static/css/profil.css" />
-{% endblock %}
-
 {% block head %}
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <script type="text/javascript">
@@ -51,8 +47,8 @@
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
 	    {% csrf_token %}
 	    <div class="formularz">
-		{% include "formularz.html" with form=formGlowne %}
-		{% include "formularz.html" with form=formDodatkowe %}
+		{% include "i_formularz.html" with form=formGlowne %}
+		{% include "i_formularz.html" with form=formDodatkowe %}
 		
 		<input type="submit" value="Edytuj" id="form_submit" />
 		
@@ -60,7 +56,6 @@
 		    <a href="/dfor/profil/zmianahasla">Zmiana hasła<a>
 		</p>
 	    </div>
-	    
 	    </form>
 	</div>
     </div>

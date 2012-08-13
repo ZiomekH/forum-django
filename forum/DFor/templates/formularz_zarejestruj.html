@@ -4,15 +4,11 @@
     Rejestracja użytkownika
 {% endblock %}
 
-{% block style %}
-    <link rel="stylesheet" type="text/css" href="/static/css/rejestruj.css" />
-{% endblock %}
-
 {% block head %}
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <script type="text/javascript">
 	$(document).ready(function(){
-	    $('#id_email').focus();
+	    $('#id_username').focus();
 	    $('#form_submit').hide();
   	    $('#id_podpis').css('width','306px');
 	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">OK</h2></div><div class=\"belka prawy\"></div></a>");
@@ -29,7 +25,7 @@
 {% endblock %}
 
 {% block zawartosc %}
-    <div class="rejestruj">
+    <div class="zarejestruj">
 	<div class="naglowek2">
 	    <div class="podpis">
 		<div class="belka lewy"></div>
@@ -47,9 +43,9 @@
 	    <form action='.' method='post' enctype='multipart/form-data' id="id_form">
 		{% csrf_token %}
 		<div class="formularz">
-		    {% include "formularz.html" with form=formGlowne zaznacz='True' %}
-		    {% include "formularz.html" with form=formHaslo zaznacz='True' %}
-		    {% include "formularz.html" with form=formDodatkowe zaznacz='True' %}
+		    {% include "i_formularz.html" with form=formGlowne zaznacz='True' %}
+		    {% include "i_formularz.html" with form=formHaslo zaznacz='True' %}
+		    {% include "i_formularz.html" with form=formDodatkowe zaznacz='True' %}
 		    <input type="submit" value="OK" id="form_submit" />
 		</div>
 	    </form>

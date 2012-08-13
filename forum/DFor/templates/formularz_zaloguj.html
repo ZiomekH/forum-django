@@ -1,34 +1,24 @@
 {% extends "baza.html" %}
 
 {% block title %}
-    Zmiana hasła
-{% endblock %}
-
-{% block style %}
-     <link rel="stylesheet" type="text/css" href="/static/css/zmiana_hasla.css" />
+    Zaloguj
 {% endblock %}
 
 {% block head %}
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <script type="text/javascript">
 	$(document).ready(function(){
-	    $('#id_stareHaslo').focus();
+	    $("#id_username").focus();
 	    $('#form_submit').hide();
-  	    $('#id_tytul').css('width','176px');
- 	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Zmień</h2></div><div class=\"belka prawy\"></div></a>");
-	    $('#id_stareHaslo').keypress(function(e) {
+  	    $('#id_tytul').css('width','212px');
+ 	    $('#id_guzik').html("<a href=\"#\" onclick=\"slij();return false;\"><div class=\"belka lewy\"></div><div class=\"belka srodek szerokosc\"><h2 class=\"tekst\">Zaloguj</h2></div><div class=\"belka prawy\"></div></a>");
+	    $('#id_username').keypress(function(e) {
 		if (e.keyCode == 13) {
 		    slij();
 		    return e.preventDefault();
 		}
 	    });
-	    $('#id_noweHaslo1').keypress(function(e) {
-		if (e.keyCode == 13) {
-		    slij();
-		    return e.preventDefault();
-		}
-	    });
-	    $('#id_noweHaslo2').keypress(function(e) {
+	    $('#id_password').keypress(function(e) {
 		if (e.keyCode == 13) {
 		    slij();
 		    return e.preventDefault();
@@ -42,13 +32,13 @@
 {% endblock %}
 
 {% block zawartosc %}
-   <div class="zmiana_hasla">
+   <div class="zaloguj">
 	<div class="naglowek2">
 	    <div class="tytul">
 		<div class="belka lewy"></div>
 		<div class="belka srodek szerokosc" id="id_tytul">
 		    <h2 class="tekst">
-			Zmiana hasła
+			Logowanie do forum
 		    </h2>
 		</div>
 		<div class="belka prawy"></div>
@@ -59,14 +49,12 @@
 	</div>
 	
 	<div class="formularz">
-	    <form method="post" action="." id="id_form">
-	    {% csrf_token %}
-	    
-	    {% include "formularz.html" %}
-	    
+	    <form method="post" action="{% url django.contrib.auth.views.login %}" id="id_form">
+		{% csrf_token %}
+		{% include "i_formularz.html" %}
 
-	    
-	    <input type="submit" value="Zmień" id="form_submit" />
+		<input type="submit" value="zaloguj" id="form_submit" />
+		<input type="hidden" name="next" value="{{ next }}" />
 	    </form>
 	</div>
     </div>
