@@ -27,7 +27,17 @@
 	}
 	tinyMCE.init({
 		mode : "textareas",
-		theme : "simple"
+		language : "pl",
+		theme : "advanced",
+
+		plugins : "autolink,lists,save,emotions,inlinepopups,insertdatetime,paste",
+
+		skin : "o2k7",
+		skin_variant : "silver",
+		
+		theme_advanced_buttons1 : "save,newdocument,|,undo,redo,|,cut,copy,paste,pastetext,pasteword,|,bold,italic,underline,strikethrough,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,forecolor,backcolor,|,link,unlink,cleanup,|,insertdate,inserttime,|,hr,charmap,emotions",
+		theme_advanced_toolbar_align : "center",
+		theme_advanced_statusbar_location : "none",
 	});
     </script>
 {% endblock %}

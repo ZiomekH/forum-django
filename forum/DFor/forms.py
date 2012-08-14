@@ -23,7 +23,28 @@ class formularzProfilDodatkowe(ModelForm):
 	    'avatar': ClearableFileInput(attrs={'size': 15, }),
 	    'podpis': Textarea(attrs={'cols': 27, 'rows': 5}),
 	}
-	
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data['avatar']
+        if avatar:
+	    try:
+		w, h = get_image_dimensions(avatar)
+		max_width = max_height = 140
+		if w > max_width or h > max_height:
+		    raise forms.ValidationError('Maksymalne rozmiary avataru to %s x %s pikseli!' % (max_width, max_height))
+
+		main, sub = avatar.content_type.split('/')
+		if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
+		    raise forms.ValidationError('Tylko pliki JPEG, GIF i PNG!')
+
+		if len(avatar) > (20 * 1024):
+		    raise forms.ValidationError('Maksymalny rozmiar avataru to 20KiB.')
+
+	    except AttributeError:
+		pass
+
+        return avatar
+        
     #def clean(self):
 	#cleaned_data = super(formularzProfilDodatkowe, self).clean()
 	#avatar = cleaned_data.get("avatar")
@@ -91,7 +112,7 @@ class formularzPost(ModelForm):
 	model = Post
 	fields = ('tekst', 'safe')
 	widgets = {
-            'tekst': Textarea(attrs={'cols': 107, 'rows': 30}),
+            'tekst': Textarea(attrs={'cols': 107, 'rows': 35}),
             'safe': HiddenInput()
         }
 

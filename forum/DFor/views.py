@@ -274,23 +274,20 @@ def widokProfil(request):
     dane.update(csrf(request))
     if request.method == "POST":
 	formGlowne = formularzProfilGlowne(request.POST, instance=uzytkownik.uzytkownik)
-	formDodatkowe = formularzProfilDodatkowe(request.POST, instance=uzytkownik)
+	formDodatkowe = formularzProfilDodatkowe(request.POST, request.FILES, instance=uzytkownik)
 	if formGlowne.is_valid() and formDodatkowe.is_valid():
 	    formGlowne.save()
 	    if(request.FILES):
+		profil = formDodatkowe.save(commit=False)
 		import os.path
 		plik = request.FILES['avatar']
 		nazwa = 'avatars/' + str(uzytkownik.id) + os.path.splitext(plik.name)[1].lower()
 		zapiszAvatar(plik, settings.MEDIA_ROOT + nazwa)
-		profil = formDodatkowe.save(commit=False)
 		profil.avatar = nazwa
 		profil.save()
 		formDodatkowe.save_m2m()
 	    else:
-		profil = formDodatkowe.save(commit=False)
-		profil.avatar = ''
-		profil.save()
-		formDodatkowe.save_m2m()
+		formDodatkowe.save()
 
 	    return HttpResponseRedirect('/dfor/uzytkownik/' + str(uzytkownik.id))
     else:
