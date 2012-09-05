@@ -47,6 +47,7 @@ USE_TZ = True
 # Example: "/home/media/media.lawrence.com/media/"
 import os
 MEDIA_ROOT =  os.path.join(os.path.dirname(__file__), '../DFor/media/')
+#MEDIA_ROOT = '/home/ziomekh/Projekty/forum-django/forum/DFor/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
