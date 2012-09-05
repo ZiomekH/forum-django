@@ -396,6 +396,7 @@ header {
 
 .post .naglowek2 {
     margin: 10px 0 0 0;
+    background: red;
 }
 
 .post .naglowek2 .autor .szerokosc {
@@ -443,16 +444,16 @@ header {
     color: #120dc9;
 }
 
-.post .wiadomosc {
+.post .wiadomosc2 {
     margin: 0 0 0 10px;
     width: 890px;
 }
 
-.post .wiadomosc .tresc {
+.post .wiadomosc2 .tresc {
     margin: 10px 0 0 0;
 }
 
-.post .wiadomosc .kreska {
+.post .wiadomosc2 .kreska {
     background: url('../obrazki/linia.gif') repeat-x left bottom;
 }
 
